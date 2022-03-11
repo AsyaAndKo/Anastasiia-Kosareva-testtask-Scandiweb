@@ -20,4 +20,16 @@ const RightContainer = styled.div`
   display: flex;
 `;
 
-export { HeaderContainer, LeftContainer, CenterContainer, RightContainer };
+const Logo = styled.img`
+  margin-left: auto;
+  margin-right: auto;
+  width: 35px;
+`;
+
+export {
+  HeaderContainer,
+  LeftContainer,
+  CenterContainer,
+  RightContainer,
+  Logo,
+};

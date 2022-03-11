@@ -8,13 +8,23 @@ const NavbarContainer = styled.nav`
   display: flex;
   flex-direction: column;
 `;
+
 const NavbarLink = styled(Link)`
+  position: static;
+  text-decoration: none;
   color: black;
-  font-size: large;
-  font-family: Raleway, sans-serif;
+  font-size: 16px;
+  font-family: "Raleway", sans-serif;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 32px;
 `;
 
 const NavbarLinkContainer = styled.div`
   display: flex;
+  align-items: center;
+  margin-left: 117px;
 `;
 export { NavbarContainer, NavbarLinkContainer, NavbarLink };

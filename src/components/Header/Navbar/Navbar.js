@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import {
   NavbarContainer,
+  NavbarLink,
   NavbarLinkContainer,
 } from "../../styles/Navbar.style";
 
@@ -11,7 +11,9 @@ export default class Navbar extends Component {
       <>
         <NavbarContainer>
           <NavbarLinkContainer>
-            <Link to="/clothes">Clothes</Link>
+            <NavbarLink to="/all">All</NavbarLink>
+            <NavbarLink to="/clothes">Clothes</NavbarLink>
+            <NavbarLink to="/tech">Tech</NavbarLink>
           </NavbarLinkContainer>
         </NavbarContainer>
       </>
