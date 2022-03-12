@@ -19,7 +19,21 @@ const NavbarLink = styled(Link)`
   align-items: center;
   text-align: center;
   text-transform: uppercase;
-  margin: 32px;
+  margin: 30px;
+
+  text-decoration: underline 0.15em transparent;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color 300ms, text-underline-offset 300ms;
+
+  &:hover {
+    text-decoration-color: #5ece7b;
+    text-underline-offset: 1em;
+  }
+  &:focus {
+    color: #5ece7b;
+    text-decoration-color: #5ece7b;
+    text-underline-offset: 1em;
+  }
 `;
 
 const NavbarLinkContainer = styled.div`
