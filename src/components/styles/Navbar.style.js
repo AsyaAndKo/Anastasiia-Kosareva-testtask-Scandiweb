@@ -19,20 +19,29 @@ const NavbarLink = styled(Link)`
   align-items: center;
   text-align: center;
   text-transform: uppercase;
-  margin: 30px;
+  padding: 30px;
+  border-bottom: 2px solid transparent;
 
-  text-decoration: underline 0.15em transparent;
-  text-underline-offset: 0.2em;
-  transition: text-decoration-color 300ms, text-underline-offset 300ms;
+  /* text-decoration: underline 0.15em transparent;
+  text-underline-offset: 1.5em;
+  transition: text-decoration-color 300ms, text-underline-offset 300ms; */
 
   &:hover {
-    text-decoration-color: #5ece7b;
+    outline: 1;
+    border-bottom: 2px solid #5ece7b;
+    /* transition: 1em 1s linear; */
+    transition: 150ms ease-in;
+    /* text-decoration-color: #5ece7b;
     text-underline-offset: 1em;
+    transform-origin: center; */
   }
   &:focus {
+    outline: 1;
+    border-bottom: 2px solid #5ece7b;
     color: #5ece7b;
+    /* color: #5ece7b;
     text-decoration-color: #5ece7b;
-    text-underline-offset: 1em;
+    text-underline-offset: 1em; */
   }
 `;
 
