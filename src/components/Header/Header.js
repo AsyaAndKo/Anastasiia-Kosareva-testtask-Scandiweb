@@ -6,6 +6,7 @@ import {
   HeaderContainer,
   Logo,
 } from "../styles/Header.style";
+import CurrencyDropDown from "./CurrencyDD";
 import Navbar from "./Navbar/Navbar";
 import LogoImg from "../../assets/shop-logo.svg";
 
@@ -21,7 +22,7 @@ export default class Header extends Component {
             <Logo src={LogoImg}></Logo>
           </CenterContainer>
           <RightContainer>
-            <></>
+            <CurrencyDropDown />
           </RightContainer>
         </HeaderContainer>
       </>
