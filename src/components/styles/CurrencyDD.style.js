@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CurrencyDD = styled.button`
+const CurrencyDD = styled.button`
   margin: auto;
   justify-content: center;
   display: flex;
@@ -10,7 +10,7 @@ export const CurrencyDD = styled.button`
   border: none;
 `;
 
-export const Currency = styled.img`
+const Currency = styled.img`
   margin: auto;
   width: 25px;
   height: 25px;
@@ -18,7 +18,7 @@ export const Currency = styled.img`
   justify-content: center;
 `;
 
-export const Chevron = styled.img`
+const Chevron = styled.img`
   margin: auto;
   width: 10px;
   height: 10px;
@@ -28,5 +28,25 @@ export const Chevron = styled.img`
   transform: rotate(0deg);
   overflow: hidden;
   transition: all 0.3s ease-out;
-  transform: ${(props) => (props.rotate ? `rotate(180deg)` : "")};
+  transform: ${(props) => (props.open ? `rotate(180deg)` : "")};
 `;
+
+const CurrencyDDcontainer = styled.div`
+  display: ${(props) => (props.open ? "flex" : "none")};
+`;
+
+const CurrencyDDlist = styled.ul``;
+
+const CurrencyDDitem = styled.li`
+  justify-content: center;
+  display: flex;
+`;
+
+export {
+  CurrencyDD,
+  Currency,
+  Chevron,
+  CurrencyDDcontainer,
+  CurrencyDDlist,
+  CurrencyDDitem,
+};
