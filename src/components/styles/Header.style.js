@@ -8,6 +8,7 @@ const HeaderContainer = styled.div`
 const LeftContainer = styled.div`
   flex: 45%;
   display: flex;
+  margin-left: 117px;
 `;
 
 const CenterContainer = styled.div`
@@ -17,7 +18,10 @@ const CenterContainer = styled.div`
 
 const RightContainer = styled.div`
   flex: 45%;
+  align-items: center;
+  justify-content: flex-end;
   display: flex;
+  margin-right: 117px;
 `;
 
 const Logo = styled.img`

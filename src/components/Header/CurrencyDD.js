@@ -5,14 +5,8 @@ import {
   CurrencyDDcontainer,
   CurrencyDDitem,
   CurrencyDDList,
-  CurrencyImg,
   CurrencyLbl,
 } from "../styles/CurrencyDD.style";
-// import USD from "../../assets/dollar.svg";
-// import GBP from "../../assets/gbp.svg";
-// import JPY from "../../assets/jpy.svg";
-// import RUB from "../../assets/ruble.svg";
-// import A from "../../assets/a.svg";
 import Arrow from "../../assets/arrow.svg";
 
 export default class CurrencyDropDown extends Component {

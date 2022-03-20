@@ -1,22 +1,12 @@
 import styled from "styled-components";
 
 const CurrencyDD = styled.button`
-  margin-top: 30px;
-  margin-left: 0;
   justify-content: center;
   display: inline-flex;
   cursor: pointer;
 
   background-color: transparent;
   border: none;
-`;
-
-const CurrencyImg = styled.img`
-  cursor: pointer;
-  height: 25px;
-  width: auto;
-  margin-left: 0;
-  display: inline-block;
 `;
 
 const CurrencyLbl = styled.label`
@@ -46,7 +36,7 @@ const Chevron = styled.img`
 
 const CurrencyDDcontainer = styled.div`
   justify-content: center;
-  box-shadow: 0px 5px 15px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
   width: auto;
   position: absolute;
   display: ${(props) => (props.open ? "flex" : "none")};
@@ -54,7 +44,7 @@ const CurrencyDDcontainer = styled.div`
 
 const CurrencyDDList = styled.ul`
   list-style-type: none;
-  margin: 0;
+  margin: 10px;
   overflow: hidden;
   padding: 0px;
 `;
@@ -66,13 +56,14 @@ const CurrencyDDitem = styled.li`
   padding: 10px;
 
   &:hover {
-    background-color: lightgray;
+    text-decoration: underline 0.15em #5ece7b;
+    text-underline-offset: 0.2em;
+    transition: text-decoration-color 300ms, text-underline-offset 300ms;
   }
 `;
 
 export {
   CurrencyDD,
-  CurrencyImg,
   CurrencyLbl,
   Chevron,
   CurrencyDDcontainer,

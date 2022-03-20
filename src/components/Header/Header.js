@@ -7,7 +7,8 @@ import {
   Logo,
 } from "../styles/Header.style";
 import CurrencyDropDown from "./CurrencyDD";
-import Navbar from "./Navbar/Navbar";
+import Navbar from "./Navbar";
+import Cart from "./CartButton";
 import LogoImg from "../../assets/shop-logo.svg";
 
 export default class Header extends Component {
@@ -23,6 +24,7 @@ export default class Header extends Component {
           </CenterContainer>
           <RightContainer>
             <CurrencyDropDown />
+            <Cart />
           </RightContainer>
         </HeaderContainer>
       </>
