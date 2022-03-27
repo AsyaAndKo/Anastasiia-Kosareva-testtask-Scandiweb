@@ -15,7 +15,6 @@ export default class CurrencyDropDown extends Component {
     this.state = {
       options: { usd: "$", gbp: "£", jpy: "¥", rub: "₽", aud: "A$" },
       open: false,
-      currency: "$",
     };
   }
 
@@ -26,7 +25,8 @@ export default class CurrencyDropDown extends Component {
     );
 
   onOptionClicked = (value) => () => {
-    this.setState({ currency: value, open: false });
+    this.setState({ open: false });
+    this.props.handleCurrency(value);
   };
 
   render() {
@@ -34,7 +34,7 @@ export default class CurrencyDropDown extends Component {
     return (
       <div>
         <CurrencyDD onClick={this.handleClick}>
-          <CurrencyLbl>{this.state.currency}</CurrencyLbl>
+          <CurrencyLbl>{this.props.currency}</CurrencyLbl>
           <Chevron src={Arrow} alt="arrow" open={this.state.open} />
         </CurrencyDD>
         <CurrencyDDcontainer open={this.state.open}>

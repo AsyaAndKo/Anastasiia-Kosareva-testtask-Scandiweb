@@ -44,4 +44,4 @@ const CartContainer = styled.div`
   width: min-content;
 `;
 
-export { CartBtn, CartImg, Badge, CartnBage };
+export { CartBtn, CartImg, Badge, CartnBage, CartContainer };

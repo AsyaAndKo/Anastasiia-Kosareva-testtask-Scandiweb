@@ -23,7 +23,10 @@ export default class Header extends Component {
             <Logo src={LogoImg}></Logo>
           </CenterContainer>
           <RightContainer>
-            <CurrencyDropDown />
+            <CurrencyDropDown
+              currency={this.props.currency}
+              handleCurrency={this.props.handleCurrency}
+            />
             <Cart />
           </RightContainer>
         </HeaderContainer>
