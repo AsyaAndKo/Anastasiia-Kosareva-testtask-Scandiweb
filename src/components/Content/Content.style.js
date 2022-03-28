@@ -27,13 +27,16 @@ const ProductContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 550px;
-  width: 450px;
+  width: 400px;
+
+  &:hover {
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    transition: all ease-in 300ms;
+  }
 `;
 
 const ProductImg = styled.img`
-  width: 100;
   height: 100%;
-
   margin: 15px;
 `;
 

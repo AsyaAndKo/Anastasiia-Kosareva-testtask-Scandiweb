@@ -37,7 +37,9 @@ const Chevron = styled.img`
 const CurrencyDDcontainer = styled.div`
   justify-content: center;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  transition: all ease-in 300ms;
   width: auto;
+  height: auto;
   position: absolute;
   display: ${(props) => (props.open ? "flex" : "none")};
 `;
@@ -54,11 +56,12 @@ const CurrencyDDitem = styled.li`
   display: block;
   text-align: left;
   padding: 10px;
+  border-bottom: 2px solid transparent;
 
   &:hover {
-    text-decoration: underline 0.15em #5ece7b;
-    text-underline-offset: 0.2em;
-    transition: text-decoration-color 300ms, text-underline-offset 300ms;
+    outline: 1;
+    border-bottom: 2px solid #5ece7b;
+    transition: 150ms ease-in;
   }
 `;
 

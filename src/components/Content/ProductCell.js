@@ -8,7 +8,7 @@ import {
 } from "./Content.style";
 import { GET_PRODUCT_INFO } from "../../queries";
 
-export default class ProductFactory extends Component {
+export default class ProductCell extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +31,6 @@ export default class ProductFactory extends Component {
     let amount = 0;
     this.state.prodData.prices.forEach((element) => {
       if (element.currency.symbol === currency) {
-        console.log(element);
         amount = element.amount;
       }
     });
