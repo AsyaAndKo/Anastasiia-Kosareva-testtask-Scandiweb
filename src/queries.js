@@ -1,7 +1,7 @@
 import { gql } from "apollo-boost";
 
 export const GET_ALL_ID = gql`
-  {
+  query getAllIds {
     category {
       products {
         id
@@ -11,7 +11,7 @@ export const GET_ALL_ID = gql`
 `;
 
 export const GET_ALL_CATEGORIES = gql`
-  {
+  query getAllCategories {
     categories {
       name
     }
