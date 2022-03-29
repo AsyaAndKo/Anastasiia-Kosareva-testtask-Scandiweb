@@ -1,42 +1,48 @@
 import React, { Component } from "react";
 import ProductCell from "./ProductCell";
 import { client } from "../..";
-import { GET_ALL_ID } from "../../queries";
+import { GET_CATEGORY_IDS } from "../../queries";
 import { ContentCategory, ContentContainer } from "./Content.style";
 export default class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      allIds: [],
-      currentCategory: "all",
+      categoryIDs: [],
     };
   }
 
-  getAllIds = () => {
+  getCategoryIDs = (category) => {
     client
       .query({
-        query: GET_ALL_ID,
+        query: GET_CATEGORY_IDS,
+        variables: { title: category },
       })
       .then((result) => {
+        this.setState({ categoryIDs: [] });
         let ids = [];
-        result.data.category.products.forEach((element) => {
-          ids.push(element.id);
+        result.data.category.products.forEach((val) => {
+          ids.push(val.id);
         });
-        this.setState({ allIds: ids });
+        this.setState({ categoryIDs: ids });
       });
   };
 
   componentDidMount() {
-    this.getAllIds();
+    this.getCategoryIDs(this.props.category);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.category !== this.props.category) {
+      this.getCategoryIDs(this.props.category);
+    }
   }
 
   render() {
     return (
       <div>
-        {console.log(this.props.currency)}
-        <ContentCategory>All products</ContentCategory>
+        <ContentCategory>{this.props.category}</ContentCategory>
         <ContentContainer>
-          {this.state.allIds.map((element) => {
+          {this.state.categoryIDs.map((element) => {
             return (
               <ProductCell
                 id={element}

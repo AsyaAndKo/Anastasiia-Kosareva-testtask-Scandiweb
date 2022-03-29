@@ -6,12 +6,13 @@ import {
   ProductName,
   ProductPrice,
 } from "./Content.style";
-import { GET_PRODUCT_INFO } from "../../queries";
+import { GET_CATEGORY_IDS, GET_PRODUCT_INFO } from "../../queries";
 
 export default class ProductCell extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      categoryIDs: [],
       prodData: {},
     };
   }

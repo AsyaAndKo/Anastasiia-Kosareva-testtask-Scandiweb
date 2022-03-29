@@ -8,14 +8,22 @@ import Content from "./components/Content/Content";
 export default class App extends Component {
   constructor(props) {
     super(props);
+    // TODO: save state if page reloaded
     this.state = {
       currency: "$",
+      // TODO: category state from query?
+      category: "all",
     };
     this.handleCurrency = this.handleCurrency.bind(this);
+    this.handleCategory = this.handleCategory.bind(this);
   }
 
   handleCurrency(newCurrency) {
     this.setState({ currency: newCurrency });
+  }
+
+  handleCategory(newCategory) {
+    this.setState({ category: newCategory });
   }
   render() {
     return (
@@ -24,12 +32,17 @@ export default class App extends Component {
           <Header
             currency={this.state.currency}
             handleCurrency={this.handleCurrency}
+            handleCategory={this.handleCategory}
           />
           <Routes>
             <Route
-              exact
               path="/"
-              element={<Content currency={this.state.currency} />}
+              element={
+                <Content
+                  currency={this.state.currency}
+                  category={this.state.category}
+                />
+              }
             />
             <Route
               path="/cart"
