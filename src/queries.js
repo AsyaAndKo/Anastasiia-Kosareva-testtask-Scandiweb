@@ -1,11 +1,10 @@
 import { gql } from "apollo-boost";
 
-export const GET_ALL_ID = gql`
-  query getAllIds {
-    category {
-      products {
-        id
-      }
+export const GET_CURRENCY = gql`
+  query getCurrency {
+    currencies {
+      label
+      symbol
     }
   }
 `;
@@ -14,6 +13,17 @@ export const GET_ALL_CATEGORIES = gql`
   query getAllCategories {
     categories {
       name
+    }
+  }
+`;
+
+export const GET_CATEGORY_IDS = gql`
+  query getCategoryIDs($title: String!) {
+    category(input: { title: $title }) {
+      name
+      products {
+        id
+      }
     }
   }
 `;
