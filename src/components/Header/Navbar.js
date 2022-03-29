@@ -25,16 +25,25 @@ export default class Navbar extends Component {
     });
   };
 
+  onCategoryClicked = (category) => {
+    this.props.handleCategory(category);
+  };
+
   componentDidMount() {
     this.getAllCategories();
   }
+
   render() {
     return (
       <>
         <NavbarContainer>
           <NavbarLinkContainer>
             {this.state.allCategories.map((val) => {
-              return <NavbarLink to="/">{val}</NavbarLink>;
+              return (
+                <NavbarLink to="/" onClick={() => this.onCategoryClicked(val)}>
+                  {val}
+                </NavbarLink>
+              );
             })}
           </NavbarLinkContainer>
         </NavbarContainer>

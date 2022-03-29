@@ -5,11 +5,12 @@ const ContentCategory = styled.h2`
   text-decoration: none;
   font-weight: 400;
   font-family: "Raleway", sans-serif;
+  text-transform: capitalize;
 
   margin: 80px 100px;
   padding: 0 40px;
 
-  width: 100%;
+  width: min-content;
   height: max-content;
 `;
 
@@ -17,13 +18,14 @@ const ContentContainer = styled.div`
   margin: 100px;
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 
   font-family: "Raleway", sans-serif;
 `;
 
 const ProductContainer = styled.div`
   cursor: pointer;
-  margin: 0 40px 100px;
+  margin: 0 60px 100px;
   display: flex;
   flex-direction: column;
   height: 550px;

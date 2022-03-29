@@ -8,29 +8,39 @@ import {
   CurrencyLbl,
 } from "../styles/CurrencyDD.style";
 import Arrow from "../../assets/arrow.svg";
+import { client } from "../..";
+import { GET_CURRENCY } from "../../queries";
 
 export default class CurrencyDropDown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: { usd: "$", gbp: "£", jpy: "¥", rub: "₽", aud: "A$" },
+      currency: {},
       open: false,
     };
   }
 
-  handleClick = () =>
-    this.setState(
-      (prevState) => ({ open: !prevState.open }),
-      () => console.log(this.state.open)
-    );
+  getCurrency = () =>
+    client.query({ query: GET_CURRENCY }).then((result) => {
+      let currency = {};
+      result.data.currencies.forEach((element) => {
+        currency[element.symbol] = element.label;
+      });
+      this.setState({ currency: currency });
+    });
 
-  onOptionClicked = (value) => () => {
+  handleClick = () => this.setState((prevState) => ({ open: !prevState.open }));
+
+  onOptionClicked = (value) => {
     this.setState({ open: false });
     this.props.handleCurrency(value);
   };
 
+  componentDidMount() {
+    this.getCurrency();
+  }
+
   render() {
-    const { options } = this.state;
     return (
       <div>
         <CurrencyDD onClick={this.handleClick}>
@@ -39,11 +49,11 @@ export default class CurrencyDropDown extends Component {
         </CurrencyDD>
         <CurrencyDDcontainer open={this.state.open}>
           <CurrencyDDList>
-            {Object.entries(options).map(([key, value]) => {
+            {Object.entries(this.state.currency).map(([key, value]) => {
               return (
-                <CurrencyDDitem onClick={this.onOptionClicked(value)}>
+                <CurrencyDDitem onClick={() => this.onOptionClicked(key)}>
                   <CurrencyLbl>
-                    {value} {key}
+                    {key} {value}
                   </CurrencyLbl>
                 </CurrencyDDitem>
               );

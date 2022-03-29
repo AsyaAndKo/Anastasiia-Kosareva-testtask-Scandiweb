@@ -17,7 +17,7 @@ export default class Header extends Component {
       <>
         <HeaderContainer>
           <LeftContainer>
-            <Navbar />
+            <Navbar handleCategory={this.props.handleCategory} />
           </LeftContainer>
           <CenterContainer>
             <Logo src={LogoImg}></Logo>
