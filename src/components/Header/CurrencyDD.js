@@ -18,6 +18,8 @@ export default class CurrencyDropDown extends Component {
       currency: {},
       open: false,
     };
+    this.wrapperRef = React.createRef();
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   getCurrency = () =>
@@ -36,8 +38,18 @@ export default class CurrencyDropDown extends Component {
     this.props.handleCurrency(value);
   };
 
+  handleClickOutside(event) {
+    if (this.wrapperRef && !this.wrapperRef.current.contains(event.target)) {
+      this.setState({ open: false });
+    }
+  }
+
   componentDidMount() {
     this.getCurrency();
+    document.addEventListener("mousedown", this.handleClickOutside);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
   render() {
@@ -47,7 +59,7 @@ export default class CurrencyDropDown extends Component {
           <CurrencyLbl>{this.props.currency}</CurrencyLbl>
           <Chevron src={Arrow} alt="arrow" open={this.state.open} />
         </CurrencyDD>
-        <CurrencyDDcontainer open={this.state.open}>
+        <CurrencyDDcontainer open={this.state.open} ref={this.wrapperRef}>
           <CurrencyDDList>
             {Object.entries(this.state.currency).map(([key, value]) => {
               return (
