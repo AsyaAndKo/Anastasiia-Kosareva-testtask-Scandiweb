@@ -8,22 +8,26 @@ import Content from "./components/Content/Content";
 export default class App extends Component {
   constructor(props) {
     super(props);
-    // TODO: save state if page reloaded
-    this.state = {
+    this.state = JSON.parse(window.localStorage.getItem("state")) || {
       currency: "$",
-      // TODO: category state from query?
       category: "all",
     };
+
     this.handleCurrency = this.handleCurrency.bind(this);
     this.handleCategory = this.handleCategory.bind(this);
   }
 
+  setState(state) {
+    window.localStorage.setItem("state", JSON.stringify(state));
+    super.setState(state);
+  }
+
   handleCurrency(newCurrency) {
-    this.setState({ currency: newCurrency });
+    this.setState({ ...this.state, currency: newCurrency });
   }
 
   handleCategory(newCategory) {
-    this.setState({ category: newCategory });
+    this.setState({ ...this.state, category: newCategory });
   }
   render() {
     return (
