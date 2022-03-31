@@ -25,9 +25,7 @@ const RightContainer = styled.div`
 `;
 
 const Logo = styled.img`
-  margin-left: auto;
-  margin-right: auto;
-  width: 35px;
+  padding: 25px;
 `;
 
 export {
