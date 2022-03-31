@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import ProductCell from "./ProductCell";
 import { client } from "../..";
 import { GET_CATEGORY_IDS } from "../../queries";
-import { ContentCategory, ContentContainer } from "./Content.style";
+import { ContentContainer, ContentCategory } from "../styles/Content.style.js";
+
 export default class Content extends Component {
   constructor(props) {
     super(props);
