@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { GET_ALL_CATEGORIES } from "../../queries";
-import { client } from "../..";
+import { getAllCategories } from "../../queries";
 import {
   NavbarContainer,
   NavbarLink,
@@ -15,22 +14,12 @@ export default class Navbar extends Component {
     };
   }
 
-  getAllCategories = () => {
-    let category = [];
-    client.query({ query: GET_ALL_CATEGORIES }).then((result) => {
-      result.data.categories.forEach((val) => {
-        category.push(val.name);
-      });
-      this.setState({ allCategories: category });
-    });
-  };
-
   onCategoryClicked = (category) => {
     this.props.handleCategory(category);
   };
 
-  componentDidMount() {
-    this.getAllCategories();
+  async componentDidMount() {
+    this.setState({ allCategories: await getAllCategories() });
   }
 
   render() {
@@ -40,7 +29,15 @@ export default class Navbar extends Component {
           <NavbarLinkContainer>
             {this.state.allCategories.map((val) => {
               return (
-                <NavbarLink to="/" onClick={() => this.onCategoryClicked(val)}>
+                <NavbarLink
+                  isactive={() => {
+                    return this.props.category === val;
+                  }}
+                  to="/"
+                  onClick={() => {
+                    this.onCategoryClicked(val);
+                  }}
+                >
                   {val}
                 </NavbarLink>
               );

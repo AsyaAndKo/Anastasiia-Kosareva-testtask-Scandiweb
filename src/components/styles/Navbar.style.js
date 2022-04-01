@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavbarContainer = styled.nav`
   width: 100%;
@@ -9,15 +9,16 @@ const NavbarContainer = styled.nav`
   flex-direction: column;
 `;
 
-const NavbarLink = styled(Link)`
+const NavbarLink = styled(NavLink)`
   position: static;
   display: flex;
   align-items: center;
   padding: 32px;
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid
+    ${(props) => (props.isactive() ? "#5ece7b" : "transparent")};
 
   text-decoration: none;
-  color: black;
+  color: ${(props) => (props.isactive() ? "#5ece7b" : "black")};
   font-size: 16px;
   font-family: "Raleway", sans-serif;
   text-align: center;
@@ -25,14 +26,8 @@ const NavbarLink = styled(Link)`
 
   &:hover {
     outline: 1;
-    border-bottom: 2px solid #5ece7b;
+    border-color: #5ece7b;
     transition: 150ms ease-in;
-  }
-
-  &:focus {
-    outline: 1;
-    border-bottom: 2px solid #5ece7b;
-    color: #5ece7b;
   }
 `;
 

@@ -9,7 +9,7 @@ import {
 import CurrencyDropDown from "./CurrencyDD";
 import Navbar from "./Navbar";
 import Cart from "./CartButton";
-import LogoImg from "../../assets/shop-logo.svg";
+import LogoImg from "../../assets/Group.png";
 
 export default class Header extends Component {
   render() {
@@ -17,7 +17,10 @@ export default class Header extends Component {
       <>
         <HeaderContainer>
           <LeftContainer>
-            <Navbar handleCategory={this.props.handleCategory} />
+            <Navbar
+              category={this.props.category}
+              handleCategory={this.props.handleCategory}
+            />
           </LeftContainer>
           <CenterContainer>
             <Logo src={LogoImg}></Logo>
