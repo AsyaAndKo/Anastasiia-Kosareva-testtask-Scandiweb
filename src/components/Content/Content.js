@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ProductCell from "./ProductCell";
-import { client } from "../..";
-import { GET_CATEGORY_IDS } from "../../queries";
+import { getCategoryIDs } from "../../queries";
 import { ContentContainer, ContentCategory } from "../styles/Content.style.js";
 
 export default class Content extends Component {
@@ -12,29 +11,16 @@ export default class Content extends Component {
     };
   }
 
-  getCategoryIDs = (category) => {
-    client
-      .query({
-        query: GET_CATEGORY_IDS,
-        variables: { title: category },
-      })
-      .then((result) => {
-        this.setState({ categoryIDs: [] });
-        let ids = [];
-        result.data.category.products.forEach((val) => {
-          ids.push(val.id);
-        });
-        this.setState({ categoryIDs: ids });
-      });
-  };
-
-  componentDidMount() {
-    this.getCategoryIDs(this.props.category);
+  async componentDidMount() {
+    this.setState({ categoryIDs: await getCategoryIDs(this.props.category) });
   }
 
-  componentDidUpdate(prevProps) {
+  async componentDidUpdate(prevProps) {
     if (prevProps.category !== this.props.category) {
-      this.getCategoryIDs(this.props.category);
+      this.setState({ categoryIDs: [] });
+      this.setState({
+        categoryIDs: await getCategoryIDs(this.props.category),
+      });
     }
   }
 

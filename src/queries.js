@@ -61,7 +61,7 @@ export const GET_PRODUCT_INFO = gql`
 export const getAllCategories = async () => {
   let categories = [];
   try {
-    let queryResult = await client.query({ query: GET_ALL_CATEGORIES });
+    const queryResult = await client.query({ query: GET_ALL_CATEGORIES });
     queryResult.data.categories.forEach((category) => {
       categories.push(category.name);
     });
@@ -69,4 +69,34 @@ export const getAllCategories = async () => {
     console.log(e);
   }
   return categories;
+};
+
+export const getCategoryIDs = async (category) => {
+  let ids = [];
+  try {
+    const queryResult = await client.query({
+      query: GET_CATEGORY_IDS,
+      variables: { title: category },
+    });
+    queryResult.data.category.products.forEach((val) => {
+      ids.push(val.id);
+    });
+  } catch (e) {
+    console.log(e);
+  }
+  return ids;
+};
+
+export const getProductInfo = async (id) => {
+  let result = null;
+  try {
+    const queryResult = await client.query({
+      query: GET_PRODUCT_INFO,
+      variables: { id: id },
+    });
+    result = queryResult.data.product;
+  } catch (e) {
+    console.log(e);
+  }
+  return result;
 };
