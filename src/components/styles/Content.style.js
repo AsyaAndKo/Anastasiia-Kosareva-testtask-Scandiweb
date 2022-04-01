@@ -9,7 +9,7 @@ export const ContentCategory = styled.h2`
 
   margin: 80px 100px;
   padding: 0 40px;
-
+  align-items: center;
   width: min-content;
   height: max-content;
 `;
@@ -26,11 +26,12 @@ export const ContentContainer = styled.div`
 export const ProductContainer = styled.div`
   position: relative;
   cursor: pointer;
-  margin: 0 70px 100px;
+  margin: 0 45px 100px;
   display: flex;
   flex-direction: column;
-  height: auto;
-  width: auto;
+
+  width: 450px;
+  height: 550px;
 
   &:hover {
     box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
@@ -39,8 +40,8 @@ export const ProductContainer = styled.div`
 `;
 
 export const ProductImg = styled.img`
-  height: auto;
-  width: auto;
+  height: 100%;
+  object-fit: contain;
   margin: 15px;
 `;
 

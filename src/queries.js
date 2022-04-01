@@ -1,4 +1,5 @@
 import { gql } from "apollo-boost";
+import { client } from ".";
 
 export const GET_CURRENCY = gql`
   query getCurrency {
@@ -56,3 +57,16 @@ export const GET_PRODUCT_INFO = gql`
     }
   }
 `;
+
+export const getAllCategories = async () => {
+  let categories = [];
+  try {
+    let queryResult = await client.query({ query: GET_ALL_CATEGORIES });
+    queryResult.data.categories.forEach((category) => {
+      categories.push(category.name);
+    });
+  } catch (e) {
+    console.log(e);
+  }
+  return categories;
+};
