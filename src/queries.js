@@ -100,3 +100,16 @@ export const getProductInfo = async (id) => {
   }
   return result;
 };
+
+export const getCurrency = async () => {
+  let currency = {};
+  try {
+    const queryResult = await client.query({ query: GET_CURRENCY });
+    queryResult.data.currencies.forEach((element) => {
+      currency[element.symbol] = element.label;
+    });
+  } catch (e) {
+    console.log(e);
+  }
+  return currency;
+};

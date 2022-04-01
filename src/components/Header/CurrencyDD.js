@@ -8,8 +8,7 @@ import {
   CurrencyLbl,
 } from "../styles/CurrencyDD.style";
 import Arrow from "../../assets/arrow.svg";
-import { client } from "../..";
-import { GET_CURRENCY } from "../../queries";
+import { getCurrency } from "../../queries";
 
 export default class CurrencyDropDown extends Component {
   constructor(props) {
@@ -21,15 +20,6 @@ export default class CurrencyDropDown extends Component {
     this.wrapperRef = React.createRef();
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
-
-  getCurrency = () =>
-    client.query({ query: GET_CURRENCY }).then((result) => {
-      let currency = {};
-      result.data.currencies.forEach((element) => {
-        currency[element.symbol] = element.label;
-      });
-      this.setState({ currency: currency });
-    });
 
   handleClick = () => this.setState((prevState) => ({ open: !prevState.open }));
 
@@ -44,10 +34,11 @@ export default class CurrencyDropDown extends Component {
     }
   }
 
-  componentDidMount() {
-    this.getCurrency();
+  async componentDidMount() {
+    this.setState({ currency: await getCurrency() });
     document.addEventListener("mousedown", this.handleClickOutside);
   }
+
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
