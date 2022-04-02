@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const ContentCategory = styled.h2`
@@ -13,7 +14,10 @@ export const ContentCategory = styled.h2`
   width: min-content;
   height: max-content;
 `;
-
+export const ProductLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 export const ContentContainer = styled.div`
   margin: 100px;
   display: flex;
