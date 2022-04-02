@@ -25,13 +25,15 @@ export const ContentContainer = styled.div`
 
 export const ProductContainer = styled.div`
   position: relative;
-  cursor: pointer;
   margin: 0 45px 100px;
   display: flex;
   flex-direction: column;
 
   width: 450px;
   height: 550px;
+
+  ${(props) =>
+    props.inStock ? `cursor: pointer;` : `pointer-events:none; opacity: 0.4;`}
 
   &:hover {
     box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
@@ -43,6 +45,20 @@ export const ProductImg = styled.img`
   height: 100%;
   object-fit: contain;
   margin: 15px;
+
+  filter: ${(props) => (props.inStock ? `grayscale(0%)` : `grayscale(100%)`)};
+`;
+
+export const OutOfStock = styled.label`
+  display: ${(props) => (props.inStock ? `none` : `flex`)};
+  font-size: 24px;
+  color: black;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  text-transform: uppercase;
 `;
 
 export const ProductName = styled.label`

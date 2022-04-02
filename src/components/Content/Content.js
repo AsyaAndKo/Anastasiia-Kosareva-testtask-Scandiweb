@@ -17,6 +17,7 @@ export default class Content extends Component {
 
   async componentDidUpdate(prevProps) {
     if (prevProps.category !== this.props.category) {
+      // This empty setState is to avoid shallow merging
       this.setState({ categoryIDs: [] });
       this.setState({
         categoryIDs: await getCategoryIDs(this.props.category),

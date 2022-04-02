@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import Cart from "../../assets/shopping-cart.svg";
-import { client } from "../..";
 import {
   AddButton,
   ButtonImg,
+  OutOfStock,
   ProductContainer,
   ProductImg,
   ProductName,
   ProductPrice,
 } from "../styles/Content.style";
-import { GET_PRODUCT_INFO } from "../../queries";
+import { getProductInfo } from "../../queries";
 
 export default class ProductCell extends Component {
   constructor(props) {
@@ -19,17 +19,6 @@ export default class ProductCell extends Component {
       divHover: false,
     };
   }
-
-  getProductInfo = (id) => {
-    client
-      .query({
-        query: GET_PRODUCT_INFO,
-        variables: { id: id },
-      })
-      .then((result) => {
-        this.setState({ prodData: result.data.product });
-      });
-  };
 
   setPriceCurrency = (currency) => {
     let amount = 0;
@@ -44,18 +33,26 @@ export default class ProductCell extends Component {
   handleEffect = () =>
     this.setState((prevState) => ({ divHover: !prevState.divHover }));
 
-  componentDidMount() {
-    this.getProductInfo(this.props.id);
+  async componentDidMount() {
+    this.setState({ prodData: await getProductInfo(this.props.id) });
   }
 
   render() {
     return (
       this.state.prodData.gallery !== undefined && (
         <ProductContainer
+          inStock={this.state.prodData.inStock}
           onMouseEnter={this.handleEffect}
           onMouseLeave={this.handleEffect}
         >
-          <ProductImg src={this.state.prodData.gallery[0]} alt="photo" />
+          <ProductImg
+            inStock={this.state.prodData.inStock}
+            src={this.state.prodData.gallery[0]}
+            alt="photo"
+          />
+          <OutOfStock inStock={this.state.prodData.inStock}>
+            Out of stock
+          </OutOfStock>
           <ProductName>
             {this.state.prodData["brand"]} {this.state.prodData["name"]}
           </ProductName>
