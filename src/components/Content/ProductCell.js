@@ -41,11 +41,14 @@ export default class ProductCell extends Component {
   render() {
     return (
       this.state.prodData.gallery !== undefined && (
-        <ProductLink to="/product">
+        <ProductLink to="/product" inStock={this.state.prodData.inStock}>
           <ProductContainer
             inStock={this.state.prodData.inStock}
             onMouseEnter={this.handleEffect}
             onMouseLeave={this.handleEffect}
+            onClick={() => {
+              this.props.handleProductID(this.props.id);
+            }}
           >
             <ProductImg
               inStock={this.state.prodData.inStock}

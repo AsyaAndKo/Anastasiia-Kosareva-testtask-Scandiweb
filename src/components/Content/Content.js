@@ -9,7 +9,12 @@ export default class Content extends Component {
     this.state = {
       categoryIDs: [],
     };
+    this.handleProductID = this.handleProductID.bind(this);
   }
+
+  handleProductID = (id) => {
+    this.props.handleProductID(id);
+  };
 
   async componentDidMount() {
     this.setState({ categoryIDs: await getCategoryIDs(this.props.category) });
@@ -35,6 +40,7 @@ export default class Content extends Component {
               <ProductCell
                 id={element}
                 currency={this.props.currency}
+                handleProductID={this.handleProductID}
               ></ProductCell>
             );
           })}
