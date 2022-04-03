@@ -37,8 +37,8 @@ export default class App extends Component {
 
   handleProductID(newProductID) {
     this.setState({ ...this.state, productID: newProductID });
-    console.log(this.state.productID);
   }
+
   render() {
     return (
       <div className={App}>

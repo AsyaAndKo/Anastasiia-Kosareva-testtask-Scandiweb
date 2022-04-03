@@ -20,7 +20,7 @@ export const ProductLink = styled(Link)`
   pointer-events: ${(props) => (props.inStock ? `auto` : `none`)};
 `;
 export const ContentContainer = styled.div`
-  margin: 100px;
+  margin: 80px 100px;
   display: flex;
   flex-wrap: wrap;
   width: auto;
