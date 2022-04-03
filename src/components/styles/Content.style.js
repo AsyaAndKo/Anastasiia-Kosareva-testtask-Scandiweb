@@ -17,6 +17,7 @@ export const ContentCategory = styled.h2`
 export const ProductLink = styled(Link)`
   text-decoration: none;
   color: black;
+  pointer-events: ${(props) => (props.inStock ? `auto` : `none`)};
 `;
 export const ContentContainer = styled.div`
   margin: 100px;
