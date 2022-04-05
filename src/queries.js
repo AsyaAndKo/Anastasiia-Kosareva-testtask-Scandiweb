@@ -29,21 +29,10 @@ export const GET_CATEGORY_IDS = gql`
   }
 `;
 
-export const GET_PRODUCT_INFO = gql`
-  query getProductInfo($id: String!) {
+export const GET_PRODUCT_ATTRIBUTES = gql`
+  query getProductAttributes($id: String!) {
     product(id: $id) {
-      name
-      brand
-      inStock
-      gallery
-      category
-      prices {
-        amount
-        currency {
-          label
-          symbol
-        }
-      }
+      id
       attributes {
         id
         name
@@ -58,6 +47,26 @@ export const GET_PRODUCT_INFO = gql`
   }
 `;
 
+export const GET_PRODUCT_INFO = gql`
+  query getProductInfo($id: String!) {
+    product(id: $id) {
+      name
+      brand
+      inStock
+      gallery
+      category
+      description
+      prices {
+        amount
+        currency {
+          label
+          symbol
+        }
+      }
+    }
+  }
+`;
+
 export const getAllCategories = async () => {
   let categories = [];
   try {
@@ -65,10 +74,24 @@ export const getAllCategories = async () => {
     queryResult.data.categories.forEach((category) => {
       categories.push(category.name);
     });
+  } catch (e) {}
+  return categories;
+};
+
+export const getAllAttributes = async (id) => {
+  let attributes = [];
+  try {
+    const queryResult = await client.query({
+      query: GET_PRODUCT_ATTRIBUTES,
+      variables: { id: id },
+    });
+    queryResult.data.product.attributes.forEach((attribute) => {
+      attributes.push(attribute);
+    });
   } catch (e) {
     console.log(e);
   }
-  return categories;
+  return attributes;
 };
 
 export const getCategoryIDs = async (category) => {
