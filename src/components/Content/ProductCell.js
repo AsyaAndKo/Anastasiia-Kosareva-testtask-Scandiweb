@@ -64,7 +64,10 @@ export default class ProductCell extends Component {
             <ProductPrice>
               {this.setPriceCurrency(this.props.currency)}
             </ProductPrice>
-            <AddButton divHover={this.state.divHover}>
+            <AddButton
+              divHover={this.state.divHover}
+              inStock={this.state.prodData.inStock}
+            >
               <ButtonImg src={Cart} alt="cart" />
             </AddButton>
           </ProductContainer>

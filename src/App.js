@@ -66,8 +66,13 @@ export default class App extends Component {
               element={<Cart currency={this.state.currency} />}
             />
             <Route
-              path="/product"
-              element={<ProductPage id={this.state.productID} />}
+              path="/:id"
+              element={
+                <ProductPage
+                  id={this.state.productID}
+                  currency={this.state.currency}
+                />
+              }
             />
           </Routes>
         </BrowserRouter>

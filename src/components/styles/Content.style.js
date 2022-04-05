@@ -17,7 +17,6 @@ export const ContentCategory = styled.h2`
 export const ProductLink = styled(Link)`
   text-decoration: none;
   color: black;
-  pointer-events: ${(props) => (props.inStock ? `auto` : `none`)};
 `;
 export const ContentContainer = styled.div`
   margin: 80px 100px;
@@ -37,8 +36,7 @@ export const ProductContainer = styled.div`
   width: 450px;
   height: 550px;
 
-  ${(props) =>
-    props.inStock ? `cursor: pointer;` : `pointer-events:none; opacity: 0.4;`}
+  ${(props) => (props.inStock ? `cursor: pointer;` : `opacity: 0.4;`)}
 
   &:hover {
     box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
@@ -89,8 +87,7 @@ export const AddButton = styled.button`
   background-color: #5ece7b;
   border-radius: 50%;
   transition: 0.3s;
-
-  display: ${(props) => (props.divHover ? "flex" : "none")};
+  display: ${(props) => (props.inStock && props.divHover ? `flex` : `none`)};
 
   &:hover {
     background: #4ba362;

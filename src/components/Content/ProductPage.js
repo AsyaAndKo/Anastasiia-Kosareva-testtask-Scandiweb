@@ -1,12 +1,20 @@
 import React, { Component } from "react";
-import { getProductInfo } from "../../queries";
+import { getAllAttributes, getProductInfo } from "../../queries";
 import {
+  ProductName,
   InfoBox,
   LImage,
   LImageContainer,
   ProdPageContainer,
+  ProductBrand,
   SImage,
   SImgContainer,
+  AttributeName,
+  AttributeBox,
+  AttributeContainer,
+  Price,
+  AddToCartBtn,
+  Description,
 } from "../styles/ProductPage.style";
 
 export default class ProductPage extends Component {
@@ -15,12 +23,24 @@ export default class ProductPage extends Component {
     this.state = {
       prodData: {},
       largeImage: "",
+      attributes: [],
     };
   }
+
+  setPriceCurrency = (currency) => {
+    let amount = 0;
+    this.state.prodData.prices.forEach((element) => {
+      if (element.currency.symbol === currency) {
+        amount = element.amount;
+      }
+    });
+    return `${currency} ${amount}`;
+  };
 
   async componentDidMount() {
     this.setState({ prodData: await getProductInfo(this.props.id) });
     this.setState({ largeImage: this.state.prodData.gallery[0] });
+    this.setState({ attributes: await getAllAttributes(this.props.id) });
   }
 
   render() {
@@ -41,7 +61,38 @@ export default class ProductPage extends Component {
           <LImageContainer>
             <LImage src={this.state.largeImage} alt="large photo" />
           </LImageContainer>
-          <InfoBox></InfoBox>
+          <InfoBox>
+            <ProductBrand>{this.state.prodData.brand}</ProductBrand>
+            <ProductName>{this.state.prodData.name}</ProductName>
+            {this.state.attributes.map((attribute) => {
+              return (
+                <AttributeContainer>
+                  <AttributeName>{attribute.name}:</AttributeName>
+                  {attribute.items.map((item) => {
+                    return (
+                      <AttributeBox
+                        style={{ background: item.value, color: item.value }}
+                      >
+                        {item.value}
+                      </AttributeBox>
+                    );
+                  })}
+                </AttributeContainer>
+              );
+            })}
+            <AttributeContainer>
+              <AttributeName>price:</AttributeName>
+              <Price>{this.setPriceCurrency(this.props.currency)}</Price>
+            </AttributeContainer>
+            <AddToCartBtn inStock={this.state.prodData.inStock}>
+              add to cart
+            </AddToCartBtn>
+            <Description
+              dangerouslySetInnerHTML={{
+                __html: this.state.prodData.description,
+              }}
+            />
+          </InfoBox>
         </ProdPageContainer>
       )
     );
