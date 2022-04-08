@@ -11,8 +11,9 @@ import {
   ProductLink,
 } from "../styles/Content.style";
 import { getProductInfo } from "../../queries";
+import { connect } from "react-redux";
 
-export default class ProductCell extends Component {
+class ProductCell extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -62,7 +63,7 @@ export default class ProductCell extends Component {
               {this.state.prodData["brand"]} {this.state.prodData["name"]}
             </ProductName>
             <ProductPrice>
-              {this.setPriceCurrency(this.props.currency)}
+              {this.setPriceCurrency(this.props.currentCurrency)}
             </ProductPrice>
             <AddButton
               divHover={this.state.divHover}
@@ -76,3 +77,9 @@ export default class ProductCell extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ currentCurrency }) => ({
+  currentCurrency: currentCurrency.currentCurrency,
+});
+
+export default connect(mapStateToProps)(ProductCell);

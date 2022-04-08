@@ -5,8 +5,10 @@ import {
   NavbarLink,
   NavbarLinkContainer,
 } from "../styles/Navbar.style";
+import { setCurrentCategory } from "../../redux/Category/category.actions";
+import { connect } from "react-redux";
 
-export default class Navbar extends Component {
+class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +17,7 @@ export default class Navbar extends Component {
   }
 
   onCategoryClicked = (category) => {
-    this.props.handleCategory(category);
+    this.props.setCurrentCategory({ currentCategory: category });
   };
 
   async componentDidMount() {
@@ -23,6 +25,9 @@ export default class Navbar extends Component {
   }
 
   render() {
+    const { currentCategory } = this.props;
+    console.log(currentCategory);
+
     return (
       <>
         <NavbarContainer>
@@ -31,11 +36,12 @@ export default class Navbar extends Component {
               return (
                 <NavbarLink
                   isactive={() => {
-                    return this.props.category === val;
+                    return currentCategory === val;
                   }}
                   to="/"
                   onClick={() => {
-                    this.onCategoryClicked(val);
+                    this.props.setCurrentCategory({ currentCategory: val });
+                    console.log(currentCategory);
                   }}
                 >
                   {val}
@@ -48,3 +54,14 @@ export default class Navbar extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ currentCategory }) => ({
+  currentCategory: currentCategory.currentCategory,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentCategory: (currentCategory) =>
+    dispatch(setCurrentCategory(currentCategory)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

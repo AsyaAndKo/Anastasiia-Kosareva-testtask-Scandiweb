@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { getAllAttributes, getProductInfo } from "../../queries";
 import {
   ProductName,
@@ -17,7 +18,7 @@ import {
   Description,
 } from "../styles/ProductPage.style";
 
-export default class ProductPage extends Component {
+class ProductPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -82,7 +83,7 @@ export default class ProductPage extends Component {
             })}
             <AttributeContainer>
               <AttributeName>price:</AttributeName>
-              <Price>{this.setPriceCurrency(this.props.currency)}</Price>
+              <Price>{this.setPriceCurrency(this.props.currentCurrency)}</Price>
             </AttributeContainer>
             <AddToCartBtn inStock={this.state.prodData.inStock}>
               add to cart
@@ -98,3 +99,9 @@ export default class ProductPage extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ currentCurrency }) => ({
+  currentCurrency: currentCurrency.currentCurrency,
+});
+
+export default connect(mapStateToProps)(ProductPage);

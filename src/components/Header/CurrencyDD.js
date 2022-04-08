@@ -9,8 +9,10 @@ import {
 } from "../styles/CurrencyDD.style";
 import Arrow from "../../assets/arrow.svg";
 import { getCurrency } from "../../queries";
+import { setCurrentCurrency } from "../../redux/Currency/currency.actions";
+import { connect } from "react-redux";
 
-export default class CurrencyDropDown extends Component {
+class CurrencyDropDown extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,7 +27,9 @@ export default class CurrencyDropDown extends Component {
 
   onOptionClicked = (value) => {
     this.setState({ open: false });
-    this.props.handleCurrency(value);
+    this.props.setCurrentCurrency({
+      currentCurrency: value,
+    });
   };
 
   handleClickOutside(event) {
@@ -44,10 +48,11 @@ export default class CurrencyDropDown extends Component {
   }
 
   render() {
+    const { currentCurrency } = this.props;
     return (
       <div>
         <CurrencyDD onClick={this.handleClick}>
-          <CurrencyLbl>{this.props.currency}</CurrencyLbl>
+          <CurrencyLbl>{currentCurrency}</CurrencyLbl>
           <Chevron src={Arrow} alt="arrow" open={this.state.open} />
         </CurrencyDD>
         <CurrencyDDcontainer open={this.state.open} ref={this.wrapperRef}>
@@ -67,3 +72,14 @@ export default class CurrencyDropDown extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ currentCurrency }) => ({
+  currentCurrency: currentCurrency.currentCurrency,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentCurrency: (currentCurrency) =>
+    dispatch(setCurrentCurrency(currentCurrency)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencyDropDown);
