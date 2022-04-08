@@ -10,11 +10,16 @@ class Content extends Component {
     this.state = {
       categoryIDs: [],
     };
-    this.handleProductID = this.handleProductID.bind(this);
   }
 
-  handleProductID = (id) => {
-    this.props.handleProductID(id);
+  updateData = async (prevProps) => {
+    if (prevProps.currentCategory !== this.props.currentCategory) {
+      // This empty setState is to avoid shallow merging
+      this.setState({ categoryIDs: [] });
+      this.setState({
+        categoryIDs: await getCategoryIDs(this.props.currentCategory),
+      });
+    }
   };
 
   async componentDidMount() {
@@ -23,17 +28,9 @@ class Content extends Component {
     });
   }
 
-  // async componentDidUpdate(prevProps) {
-  //   if (
-  //     prevProps.currentCategory !== this.props.currentCategory.currentCategory
-  //   ) {
-  //     // This empty setState is to avoid shallow merging
-  //     // this.setState({ categoryIDs: [] });
-  //     // this.setState({
-  //     //   categoryIDs: await getCategoryIDs(this.props.currentCategory),
-  //     // });
-  //   }
-  // }
+  async componentDidUpdate(prevProps) {
+    this.updateData(prevProps);
+  }
 
   render() {
     return (
@@ -41,12 +38,7 @@ class Content extends Component {
         <ContentCategory>{this.props.currentCategory}</ContentCategory>
         <ContentContainer>
           {this.state.categoryIDs.map((element) => {
-            return (
-              <ProductCell
-                id={element}
-                handleProductID={this.handleProductID}
-              ></ProductCell>
-            );
+            return <ProductCell id={element}></ProductCell>;
           })}
         </ContentContainer>
       </div>
@@ -54,9 +46,14 @@ class Content extends Component {
   }
 }
 
-const mapStateToProps = ({ currentCurrency, currentCategory }) => ({
+const mapStateToProps = ({
+  currentCurrency,
+  currentCategory,
+  currentProductID,
+}) => ({
   currentCurrency: currentCurrency.currentCurrency,
   currentCategory: currentCategory.currentCategory,
+  currentProductID: currentProductID.currentProductID,
 });
 
 export default connect(mapStateToProps)(Content);
