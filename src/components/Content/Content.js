@@ -46,14 +46,9 @@ class Content extends Component {
   }
 }
 
-const mapStateToProps = ({
-  currentCurrency,
-  currentCategory,
-  currentProductID,
-}) => ({
+const mapStateToProps = ({ currentCurrency, currentCategory }) => ({
   currentCurrency: currentCurrency.currentCurrency,
   currentCategory: currentCategory.currentCategory,
-  currentProductID: currentProductID.currentProductID,
 });
 
 export default connect(mapStateToProps)(Content);
