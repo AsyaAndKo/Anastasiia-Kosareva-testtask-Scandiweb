@@ -11,16 +11,13 @@ import Navbar from "./Navbar";
 import Cart from "./CartButton";
 import LogoImg from "../../assets/Group.png";
 
-class Header extends Component {
+export default class Header extends Component {
   render() {
     return (
       <>
         <HeaderContainer>
           <LeftContainer>
-            <Navbar
-            // category={this.props.category}
-            // handleCategory={this.props.handleCategory}
-            />
+            <Navbar />
           </LeftContainer>
           <CenterContainer>
             <Logo src={LogoImg}></Logo>
@@ -34,10 +31,3 @@ class Header extends Component {
     );
   }
 }
-
-// const mapStateToProps = ({ currency, category }) => ({
-//   currentCurrency: currency,
-//   currentCategory: category,
-// });
-
-export default Header;
