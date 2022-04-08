@@ -12,6 +12,7 @@ import {
 } from "../styles/Content.style";
 import { getProductInfo } from "../../queries";
 import { connect } from "react-redux";
+import { setCurrentProductID } from "../../redux/ProductID/productID.actions";
 
 class ProductCell extends Component {
   constructor(props) {
@@ -48,7 +49,9 @@ class ProductCell extends Component {
             onMouseEnter={this.handleEffect}
             onMouseLeave={this.handleEffect}
             onClick={() => {
-              this.props.handleProductID(this.props.id);
+              this.props.setCurrentProductID({
+                currentProductID: this.props.id,
+              });
             }}
           >
             <ProductImg
@@ -78,8 +81,14 @@ class ProductCell extends Component {
   }
 }
 
-const mapStateToProps = ({ currentCurrency }) => ({
+const mapStateToProps = ({ currentCurrency, currentProductID }) => ({
   currentCurrency: currentCurrency.currentCurrency,
+  currentProductID: currentProductID.currentProductID,
 });
 
-export default connect(mapStateToProps)(ProductCell);
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentProductID: (currentProductID) =>
+    dispatch(setCurrentProductID(currentProductID)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCell);

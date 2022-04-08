@@ -10,44 +10,15 @@ import ProductPage from "./components/Content/ProductPage";
 // import { setCurrentCurrency } from "./redux/Currency/currency.actions";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    // Use Local Storage to save chosen category and currency if page was reloaded
-    this.state = JSON.parse(window.localStorage.getItem("state")) || {
-      productID: "",
-    };
-    this.handleProductID = this.handleProductID.bind(this);
-  }
-
-  setState(state) {
-    window.localStorage.setItem("state", JSON.stringify(state));
-    super.setState(state);
-  }
-
-  handleProductID(newProductID) {
-    this.setState({ ...this.state, productID: newProductID });
-  }
-
   render() {
     return (
       <div className={App}>
         <BrowserRouter>
           <Header />
           <Routes>
-            <Route
-              path="/"
-              element={
-                <Content
-                  productID={this.state.productID}
-                  handleProductID={this.handleProductID}
-                />
-              }
-            />
+            <Route path="/" element={<Content />} />
             <Route path="/cart" element={<Cart />} />
-            <Route
-              path="/product"
-              element={<ProductPage id={this.state.productID} />}
-            />
+            <Route path="/product" element={<ProductPage />} />
           </Routes>
         </BrowserRouter>
       </div>
