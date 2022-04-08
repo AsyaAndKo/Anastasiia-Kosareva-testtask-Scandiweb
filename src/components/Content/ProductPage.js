@@ -39,9 +39,13 @@ class ProductPage extends Component {
   };
 
   async componentDidMount() {
-    this.setState({ prodData: await getProductInfo(this.props.id) });
+    this.setState({
+      prodData: await getProductInfo(this.props.currentProductID),
+    });
     this.setState({ largeImage: this.state.prodData.gallery[0] });
-    this.setState({ attributes: await getAllAttributes(this.props.id) });
+    this.setState({
+      attributes: await getAllAttributes(this.props.currentProductID),
+    });
   }
 
   render() {
@@ -100,8 +104,9 @@ class ProductPage extends Component {
   }
 }
 
-const mapStateToProps = ({ currentCurrency }) => ({
+const mapStateToProps = ({ currentCurrency, currentProductID }) => ({
   currentCurrency: currentCurrency.currentCurrency,
+  currentProductID: currentProductID.currentProductID,
 });
 
 export default connect(mapStateToProps)(ProductPage);
