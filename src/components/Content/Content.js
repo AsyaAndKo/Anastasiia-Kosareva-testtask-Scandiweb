@@ -12,7 +12,7 @@ class Content extends Component {
     };
   }
 
-  updateData = async (prevProps) => {
+  updateCategoryIDs = async (prevProps) => {
     if (prevProps.currentCategory !== this.props.currentCategory) {
       // This empty setState is to avoid shallow merging
       this.setState({ categoryIDs: [] });
@@ -29,7 +29,7 @@ class Content extends Component {
   }
 
   async componentDidUpdate(prevProps) {
-    this.updateData(prevProps);
+    this.updateCategoryIDs(prevProps);
   }
 
   render() {
