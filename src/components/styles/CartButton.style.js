@@ -9,14 +9,16 @@ const CartBtn = styled.button`
 
   background-color: transparent;
   border: none;
-
-  &:hover {
-  }
 `;
 
 const CartnBage = styled.div`
   position: relative;
   width: min-content;
+  transition: 0.3s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 const CartImg = styled.img`

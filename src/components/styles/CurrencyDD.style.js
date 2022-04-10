@@ -7,6 +7,11 @@ const CurrencyDD = styled.button`
 
   background-color: transparent;
   border: none;
+  transition: 0.3s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
 `;
 
 const CurrencyLbl = styled.label`
