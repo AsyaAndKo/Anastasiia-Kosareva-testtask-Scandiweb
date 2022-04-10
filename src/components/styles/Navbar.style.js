@@ -14,6 +14,7 @@ const NavbarLink = styled(NavLink)`
   display: flex;
   align-items: center;
   padding: 32px;
+  padding-bottom: 28px;
   border-bottom: 2px solid
     ${(props) => (props.isactive() ? "#5ece7b" : "transparent")};
 
