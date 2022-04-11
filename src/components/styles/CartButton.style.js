@@ -42,8 +42,16 @@ const Badge = styled.span`
 `;
 
 const CartContainer = styled.div`
-  display: none;
-  width: min-content;
+  z-index: 16;
+  justify-content: center;
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  background-color: white;
+  transition: all ease-in 300ms;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 80px;
+  display: ${(props) => (props.open ? `flex` : `none`)};
 `;
 
 export { CartBtn, CartImg, Badge, CartnBage, CartContainer };

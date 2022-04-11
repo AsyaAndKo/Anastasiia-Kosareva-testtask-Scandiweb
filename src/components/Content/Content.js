@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import ProductCell from "./ProductCell";
 import { getCategoryIDs } from "../../queries";
-import { ContentContainer, ContentCategory } from "../styles/Content.style.js";
+import {
+  ContentContainer,
+  ContentCategory,
+  ContentPage,
+} from "../styles/Content.style.js";
 import { connect } from "react-redux";
 
 class Content extends Component {
@@ -34,21 +38,22 @@ class Content extends Component {
 
   render() {
     return (
-      <div>
+      <ContentPage cartIsOpen={this.props.cartIsOpen}>
         <ContentCategory>{this.props.currentCategory}</ContentCategory>
         <ContentContainer>
           {this.state.categoryIDs.map((element) => {
             return <ProductCell id={element}></ProductCell>;
           })}
         </ContentContainer>
-      </div>
+      </ContentPage>
     );
   }
 }
 
-const mapStateToProps = ({ currentCurrency, currentCategory }) => ({
+const mapStateToProps = ({ currentCurrency, currentCategory, cartIsOpen }) => ({
   currentCurrency: currentCurrency.currentCurrency,
   currentCategory: currentCategory.currentCategory,
+  cartIsOpen: cartIsOpen.cartIsOpen,
 });
 
 export default connect(mapStateToProps)(Content);
