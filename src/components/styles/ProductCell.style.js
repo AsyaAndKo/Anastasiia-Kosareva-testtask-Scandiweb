@@ -1,35 +1,23 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-// export const YetAnotherDiv = styled.div`
-//   width: 450px;
-//   height: 550px;
-//   margin: 0 45px 100px;
-
-//   position: relative;
-//   display: flex;
-//   /* flex-direction: column; */
-
-//   ${(props) => (props.inStock ? `cursor: pointer;` : `opacity: 0.4;`)}
-
-//   &:hover {
-//     box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
-//     transition: all ease-in-out 0.3s;
-//   }
-// `;
-
 export const ProductLink = styled(Link)`
   text-decoration: none;
   color: black;
-`;
-export const ProductContainer = styled.div`
   position: relative;
-  margin: 0 45px 100px;
   display: flex;
   flex-direction: column;
   width: 450px;
   height: 550px;
+`;
+
+export const ProductContainer = styled.div`
+  position: relative;
+  margin: 0 45px 100px;
+  display: flex;
+
   ${(props) => (props.inStock ? `cursor: pointer;` : `opacity: 0.4;`)}
+
   &:hover {
     box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
     transition: all ease-in-out 0.3s;

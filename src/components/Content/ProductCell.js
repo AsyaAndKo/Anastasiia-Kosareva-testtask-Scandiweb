@@ -8,6 +8,7 @@ import {
   ProductImg,
   ProductName,
   ProductPrice,
+  ProductLink,
 } from "../styles/ProductCell.style";
 import { getProductInfo } from "../../queries";
 import { connect } from "react-redux";
@@ -42,7 +43,6 @@ class ProductCell extends Component {
   render() {
     return (
       this.state.prodData.gallery !== undefined && (
-        // <ProductLink to="/product">
         <ProductContainer
           inStock={this.state.prodData.inStock}
           onMouseEnter={this.handleEffect}
@@ -53,30 +53,31 @@ class ProductCell extends Component {
             });
           }}
         >
-          <ProductImg
-            cartIsOpen={this.props.cartIsOpen}
-            inStock={this.state.prodData.inStock}
-            src={this.state.prodData.gallery[0]}
-            alt="photo"
-          />
-          <OutOfStock inStock={this.state.prodData.inStock}>
-            Out of stock
-          </OutOfStock>
-          <ProductName>
-            {this.state.prodData["brand"]} {this.state.prodData["name"]}
-          </ProductName>
-          <ProductPrice>
-            {this.setPriceCurrency(this.props.currentCurrency)}
-          </ProductPrice>
+          {" "}
+          <ProductLink to="/product">
+            <ProductImg
+              cartIsOpen={this.props.cartIsOpen}
+              inStock={this.state.prodData.inStock}
+              src={this.state.prodData.gallery[0]}
+              alt="photo"
+            />
+            <OutOfStock inStock={this.state.prodData.inStock}>
+              Out of stock
+            </OutOfStock>
+            <ProductName>
+              {this.state.prodData["brand"]} {this.state.prodData["name"]}
+            </ProductName>
+            <ProductPrice>
+              {this.setPriceCurrency(this.props.currentCurrency)}
+            </ProductPrice>
+          </ProductLink>
           <AddButton
             divHover={this.state.divHover}
             inStock={this.state.prodData.inStock}
-            onClick={() => console.log(this.props.currentProductID)}
           >
             <ButtonImg src={Cart} alt="cart" />
           </AddButton>
         </ProductContainer>
-        // </ProductLink>
       )
     );
   }
