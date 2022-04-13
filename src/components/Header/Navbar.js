@@ -38,7 +38,7 @@ class Navbar extends Component {
                   isactive={() => {
                     return currentCategory === val;
                   }}
-                  to="/"
+                  to={`/${val}`}
                   onClick={() => {
                     this.props.setCurrentCategory({ currentCategory: val });
                     console.log(currentCategory);

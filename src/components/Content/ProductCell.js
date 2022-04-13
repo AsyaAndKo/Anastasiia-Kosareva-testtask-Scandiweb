@@ -13,6 +13,7 @@ import {
 import { getProductInfo } from "../../queries";
 import { connect } from "react-redux";
 import { setCurrentProductID } from "../../redux/ProductID/productID.actions";
+import { addProduct } from "../../redux/Cart/cart.actions";
 
 class ProductCell extends Component {
   constructor(props) {
@@ -36,6 +37,10 @@ class ProductCell extends Component {
   handleEffect = () =>
     this.setState((prevState) => ({ divHover: !prevState.divHover }));
 
+  handleAddToCart = (product) => {
+    this.props.addProduct(product);
+  };
+
   async componentDidMount() {
     this.setState({ prodData: await getProductInfo(this.props.id) });
   }
@@ -53,8 +58,7 @@ class ProductCell extends Component {
             });
           }}
         >
-          {" "}
-          <ProductLink to="/product">
+          <ProductLink to={`/product/${this.props.id}`}>
             <ProductImg
               cartIsOpen={this.props.cartIsOpen}
               inStock={this.state.prodData.inStock}
@@ -74,6 +78,7 @@ class ProductCell extends Component {
           <AddButton
             divHover={this.state.divHover}
             inStock={this.state.prodData.inStock}
+            onClick={() => this.handleAddToCart(this.state.prodData)}
           >
             <ButtonImg src={Cart} alt="cart" />
           </AddButton>
@@ -87,15 +92,18 @@ const mapStateToProps = ({
   currentCurrency,
   currentProductID,
   cartIsOpen,
+  cartData,
 }) => ({
   currentCurrency: currentCurrency.currentCurrency,
   currentProductID: currentProductID.currentProductID,
   cartIsOpen: cartIsOpen.cartIsOpen,
+  cartData: cartData.cartData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentProductID: (currentProductID) =>
     dispatch(setCurrentProductID(currentProductID)),
+  addProduct: (cartData) => dispatch(addProduct(cartData)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCell);
