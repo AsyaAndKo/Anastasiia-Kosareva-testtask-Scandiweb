@@ -94,6 +94,22 @@ export const getAllAttributes = async (id) => {
   return attributes;
 };
 
+// export const getFirstAttributes = async (id) => {
+//   let attributes = [];
+//   try {
+//     const queryResult = await client.query({
+//       query: GET_PRODUCT_ATTRIBUTES,
+//       variables: { id: id },
+//     });
+//     queryResult.data.product.attributes.forEach((attribute) => {
+//       attributes.push();
+//     });
+//   } catch (e) {
+//     console.log(e);
+//   }
+//   return attributes;
+// };
+
 export const getCategoryIDs = async (category) => {
   let ids = [];
   try {
@@ -111,13 +127,20 @@ export const getCategoryIDs = async (category) => {
 };
 
 export const getProductInfo = async (id) => {
-  let result = null;
+  let result = { data: [], attributes: [] };
   try {
-    const queryResult = await client.query({
+    const queryData = await client.query({
       query: GET_PRODUCT_INFO,
       variables: { id: id },
     });
-    result = queryResult.data.product;
+    const queryAttributes = await client.query({
+      query: GET_PRODUCT_ATTRIBUTES,
+      variables: { id: id },
+    });
+    result.data = queryData.data.product;
+    queryAttributes.data.product.attributes.forEach((attribute) => {
+      result.attributes.push(attribute.id, attribute.items[0]);
+    });
   } catch (e) {
     console.log(e);
   }

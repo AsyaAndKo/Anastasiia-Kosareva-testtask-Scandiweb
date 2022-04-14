@@ -19,14 +19,20 @@ class ProductCell extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      prodData: {},
+      prodData: { data: [], attributes: [] },
       divHover: false,
     };
   }
 
+  getAllData = async (id) => {
+    this.setState({
+      prodData: await getProductInfo(id),
+    });
+  };
+
   setPriceCurrency = (currency) => {
     let amount = 0;
-    this.state.prodData.prices.forEach((element) => {
+    this.state.prodData.data.prices.forEach((element) => {
       if (element.currency.symbol === currency) {
         amount = element.amount;
       }
@@ -42,14 +48,14 @@ class ProductCell extends Component {
   };
 
   async componentDidMount() {
-    this.setState({ prodData: await getProductInfo(this.props.id) });
+    this.getAllData(this.props.id);
   }
 
   render() {
     return (
-      this.state.prodData.gallery !== undefined && (
+      this.state.prodData.data.gallery !== undefined && (
         <ProductContainer
-          inStock={this.state.prodData.inStock}
+          inStock={this.state.prodData.data.inStock}
           onMouseEnter={this.handleEffect}
           onMouseLeave={this.handleEffect}
           onClick={() => {
@@ -61,15 +67,16 @@ class ProductCell extends Component {
           <ProductLink to={`/product/${this.props.id}`}>
             <ProductImg
               cartIsOpen={this.props.cartIsOpen}
-              inStock={this.state.prodData.inStock}
-              src={this.state.prodData.gallery[0]}
+              inStock={this.state.prodData.data.inStock}
+              src={this.state.prodData.data.gallery[0]}
               alt="photo"
             />
-            <OutOfStock inStock={this.state.prodData.inStock}>
+            <OutOfStock inStock={this.state.prodData.data.inStock}>
               Out of stock
             </OutOfStock>
             <ProductName>
-              {this.state.prodData["brand"]} {this.state.prodData["name"]}
+              {this.state.prodData.data["brand"]}{" "}
+              {this.state.prodData.data["name"]}
             </ProductName>
             <ProductPrice>
               {this.setPriceCurrency(this.props.currentCurrency)}
@@ -77,8 +84,11 @@ class ProductCell extends Component {
           </ProductLink>
           <AddButton
             divHover={this.state.divHover}
-            inStock={this.state.prodData.inStock}
-            onClick={() => this.handleAddToCart(this.state.prodData)}
+            inStock={this.state.prodData.data.inStock}
+            onClick={() => {
+              this.handleAddToCart(this.state.prodData);
+              console.log(this.state.prodData);
+            }}
           >
             <ButtonImg src={Cart} alt="cart" />
           </AddButton>
