@@ -21,6 +21,7 @@ import {
 import { setCartOpen } from "../../redux/CartOpen/cartOpen.actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { selectCartItemsCount } from "./../../redux/Cart/cart.selectors";
 
 class CartPreview extends Component {
   constructor(props) {
@@ -58,18 +59,23 @@ class CartPreview extends Component {
         <CartBtn onClick={() => this.handleClick()}>
           <CartnBage>
             <CartImg src={cartImg} alt="shopping cart" />
-            <Badge amount={this.state.amount}>{this.state.amount}</Badge>
+            <Badge amount={this.props.cartData.length}>
+              {this.props.cartData.length}
+            </Badge>
           </CartnBage>
         </CartBtn>
         <CartContainer open={this.props.cartIsOpen} ref={this.wrapperRef}>
           <Header>
             <HeaderName>My Bag</HeaderName>
-            <HeaderCounterLabel>, {this.state.amount} items</HeaderCounterLabel>
+            <HeaderCounterLabel>
+              , {this.props.cartData.length} items
+            </HeaderCounterLabel>
           </Header>
           {/* TODO:cart */}
           <ProductsContainer>
             {this.props.cartData.map((product) => {
-              return <ProductContainer>{product.name}</ProductContainer>;
+              console.log(product);
+              return <ProductContainer>{product.data.name}</ProductContainer>;
             })}
           </ProductsContainer>
           <FooterTotal>
@@ -93,9 +99,10 @@ class CartPreview extends Component {
   }
 }
 
-const mapStateToProps = ({ cartIsOpen, cartData }) => ({
-  cartIsOpen: cartIsOpen.cartIsOpen,
-  cartData: cartData.cartItems,
+const mapStateToProps = (state) => ({
+  cartIsOpen: state.cartIsOpen.cartIsOpen,
+  cartData: state.cartData.cartItems,
+  totalNumCartItems: selectCartItemsCount(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

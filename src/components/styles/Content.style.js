@@ -10,8 +10,6 @@ export const ContentPage = styled.div`
     background-color: rgba(57, 55, 72, 0.22);;
     position: fixed;
     pointer-events:none;
-
-    /* RGBa with 0.6 opacity */
     background: rgba(57, 55, 72, 0.22);;
     `
       : `background-color:transparent;
@@ -34,6 +32,7 @@ export const ContentCategory = styled.h2`
 
 export const ContentContainer = styled.div`
   margin: 80px 100px;
+  margin-bottom: 0;
   display: flex;
   flex-wrap: wrap;
   width: auto;

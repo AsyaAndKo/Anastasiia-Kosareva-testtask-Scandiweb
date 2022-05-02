@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Interweave } from "interweave";
 
 export const ProdPageContainer = styled.div`
   margin: 80px 100px;
@@ -85,6 +86,16 @@ export const AttributeBox = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+
+  &:active {
+    background-color: #1d1f22;
+    color: white;
+  }
+
+  &:focus {
+    background-color: #1d1f22;
+    color: white;
+  }
 `;
 
 export const Price = styled.label`
@@ -124,7 +135,7 @@ export const AddToCartBtn = styled.button`
   }
 `;
 
-export const Description = styled.label`
+export const Description = styled(Interweave)`
   width: 290px;
   font-family: "Roboto", sans-serif;
   font-style: normal;

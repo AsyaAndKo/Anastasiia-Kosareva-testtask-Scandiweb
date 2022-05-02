@@ -8,7 +8,7 @@ import {
 } from "../styles/Header.style";
 import CurrencyDropDown from "./CurrencyDD";
 import Navbar from "./Navbar";
-import Cart from "./CartButton";
+import Cart from "./CartPreview";
 import LogoImg from "../../assets/Group.png";
 
 export default class Header extends Component {
