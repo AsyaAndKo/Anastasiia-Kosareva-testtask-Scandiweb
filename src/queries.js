@@ -50,6 +50,7 @@ export const GET_PRODUCT_ATTRIBUTES = gql`
 export const GET_PRODUCT_INFO = gql`
   query getProductInfo($id: String!) {
     product(id: $id) {
+      id
       name
       brand
       inStock
@@ -61,6 +62,16 @@ export const GET_PRODUCT_INFO = gql`
         currency {
           label
           symbol
+        }
+      }
+      attributes {
+        id
+        name
+        type
+        items {
+          id
+          value
+          displayValue
         }
       }
     }
@@ -111,19 +122,15 @@ export const getCategoryIDs = async (category) => {
 };
 
 export const getProductInfo = async (id) => {
-  let result = { data: [], attributes: [] };
+  let result = { data: {}, attributes: {} };
   try {
     const queryData = await client.query({
       query: GET_PRODUCT_INFO,
       variables: { id: id },
     });
-    const queryAttributes = await client.query({
-      query: GET_PRODUCT_ATTRIBUTES,
-      variables: { id: id },
-    });
     result.data = queryData.data.product;
-    queryAttributes.data.product.attributes.forEach((attribute) => {
-      result.attributes.push(attribute.id, attribute.items[0].value);
+    queryData.data.product.attributes.forEach((attribute) => {
+      result.attributes[attribute.id] = attribute.items[0].value;
     });
   } catch (e) {
     console.log(e);

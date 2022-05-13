@@ -22,22 +22,24 @@ const isObject = (object) => {
   return object != null && typeof object === "object";
 };
 
+const compareObjects = (obj1, obj2) => {
+  return (
+    deepEqual(obj1.data, obj2.data) &&
+    deepEqual(obj1.attributes, obj2.attributes)
+  );
+};
 export const existingCartItem = ({ prevCartItem, nextCartItem }) => {
-  return prevCartItem.find(
-    (cartItem) =>
-      deepEqual(cartItem.data, nextCartItem.data) &&
-      deepEqual(cartItem.attributes, nextCartItem.attributes)
+  return prevCartItem.find((cartItem) =>
+    compareObjects(cartItem, nextCartItem)
   );
 };
 
 export const handleAddToCart = ({ prevCartItem, nextCartItem }) => {
   const quantityIncrement = 1;
   const cartItemExists = existingCartItem({ prevCartItem, nextCartItem });
-  console.log(cartItemExists);
   if (cartItemExists) {
     return prevCartItem.map((cartItem) =>
-      deepEqual(cartItem.data, nextCartItem.data) &&
-      deepEqual(cartItem.attributes, nextCartItem.attributes)
+      compareObjects(cartItem, nextCartItem)
         ? { ...cartItem, quantity: cartItem.quantity + quantityIncrement }
         : cartItem
     );
@@ -50,4 +52,24 @@ export const handleAddToCart = ({ prevCartItem, nextCartItem }) => {
       quantity: quantityIncrement,
     },
   ];
+};
+
+export const handleReduceCartItem = ({ prevCartItem, cartItemToReduce }) => {
+  const existingCartItem = prevCartItem.find((cartItem) =>
+    compareObjects(cartItem, cartItemToReduce)
+  );
+  if (existingCartItem.quantity === 1) {
+    return prevCartItem.filter(
+      (cartItem) => !compareObjects(cartItem, existingCartItem)
+    );
+  }
+
+  return prevCartItem.map((cartItem) =>
+    compareObjects(cartItem, existingCartItem)
+      ? {
+          ...cartItem,
+          quantity: cartItem.quantity - 1,
+        }
+      : cartItem
+  );
 };

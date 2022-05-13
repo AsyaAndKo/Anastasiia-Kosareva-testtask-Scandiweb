@@ -16,19 +16,19 @@ import {
   ButtonsContainer,
   ViewBag,
   CheckOut,
-  ProductContainer,
 } from "../styles/CartPreview.style";
 import { setCartOpen } from "../../redux/CartOpen/cartOpen.actions";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectCartItemsCount } from "./../../redux/Cart/cart.selectors";
+import CartPreviewContainer from "./CartPreviewContainer";
 
 class CartPreview extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      attributes: [],
       amount: 0,
-      sum: "$0",
     };
 
     this.wrapperRef = React.createRef();
@@ -45,6 +45,19 @@ class CartPreview extends Component {
     }
   }
 
+  countTotal = (currency) => {
+    let sum = 0;
+    this.props.cartData.forEach((product) => {
+      product.data.prices.forEach((element) => {
+        if (element.currency.symbol === currency) {
+          sum = sum + element.amount * product.quantity;
+        }
+      });
+    });
+
+    return `${currency} ${(sum + (sum * 21) / 100).toFixed(2)}`;
+  };
+
   async componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
   }
@@ -59,8 +72,8 @@ class CartPreview extends Component {
         <CartBtn onClick={() => this.handleClick()}>
           <CartnBage>
             <CartImg src={cartImg} alt="shopping cart" />
-            <Badge amount={this.props.cartData.length}>
-              {this.props.cartData.length}
+            <Badge amount={this.props.totalNumCartItems}>
+              {this.props.totalNumCartItems}
             </Badge>
           </CartnBage>
         </CartBtn>
@@ -68,19 +81,18 @@ class CartPreview extends Component {
           <Header>
             <HeaderName>My Bag</HeaderName>
             <HeaderCounterLabel>
-              , {this.props.cartData.length} items
+              , {this.props.totalNumCartItems} items
             </HeaderCounterLabel>
           </Header>
           {/* TODO:cart */}
           <ProductsContainer>
             {this.props.cartData.map((product) => {
-              console.log(product);
-              return <ProductContainer>{product.data.name}</ProductContainer>;
+              return <CartPreviewContainer key={product} product={product} />;
             })}
           </ProductsContainer>
           <FooterTotal>
             <TotalLabel>Total:</TotalLabel>
-            <SumLabel>{this.state.sum}</SumLabel>
+            <SumLabel>{this.countTotal(this.props.currentCurrency)}</SumLabel>
           </FooterTotal>
           <ButtonsContainer>
             <Link style={{ textDecoration: "none" }} to="/cart">
@@ -102,6 +114,7 @@ class CartPreview extends Component {
 const mapStateToProps = (state) => ({
   cartIsOpen: state.cartIsOpen.cartIsOpen,
   cartData: state.cartData.cartItems,
+  currentCurrency: state.currentCurrency.currentCurrency,
   totalNumCartItems: selectCartItemsCount(state),
 });
 

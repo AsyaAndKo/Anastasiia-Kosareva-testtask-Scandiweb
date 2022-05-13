@@ -12,9 +12,7 @@ const categoryReducer = (state = INITIAL_STATE, action) => {
         currentCategory: action.payload.currentCategory,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 

@@ -26,8 +26,6 @@ class Navbar extends Component {
 
   render() {
     const { currentCategory } = this.props;
-    console.log(currentCategory);
-
     return (
       <>
         <NavbarContainer>
@@ -35,13 +33,13 @@ class Navbar extends Component {
             {this.state.allCategories.map((val) => {
               return (
                 <NavbarLink
-                  isactive={() => {
+                  key={val}
+                  active={() => {
                     return currentCategory === val;
                   }}
                   to={`/${val}`}
                   onClick={() => {
-                    this.props.setCurrentCategory({ currentCategory: val });
-                    console.log(currentCategory);
+                    this.onCategoryClicked(val);
                   }}
                 >
                   {val}

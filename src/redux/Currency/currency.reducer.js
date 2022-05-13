@@ -9,7 +9,7 @@ const currencyReducer = (state = INITIAL_STATE, action) => {
     case currencyTypes.SET_CURRENT_CURRENCY:
       return { currentCurrency: action.payload.currentCurrency };
     default:
-      return { ...state };
+      return state;
   }
 };
 

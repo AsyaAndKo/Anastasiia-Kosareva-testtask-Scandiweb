@@ -19,7 +19,7 @@ class ProductCell extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      prodData: { data: [], attributes: [] },
+      prodData: { data: [], attributes: {} },
       divHover: false,
     };
   }
@@ -48,7 +48,7 @@ class ProductCell extends Component {
   };
 
   async componentDidMount() {
-    this.getAllData(this.props.id);
+    await this.getAllData(this.props.id);
   }
 
   render() {
@@ -60,11 +60,18 @@ class ProductCell extends Component {
           onMouseLeave={this.handleEffect}
           onClick={() => {
             this.props.setCurrentProductID({
-              currentProductID: this.props.id,
+              currentProductID: this.state.prodData.data,
             });
           }}
         >
-          <ProductLink to={`/product/${this.props.id}`}>
+          <ProductLink
+            to={`/product/${this.props.id}`}
+            onClick={() => {
+              this.props.setCurrentProductID({
+                currentProductID: this.state.prodData.data,
+              });
+            }}
+          >
             <ProductImg
               cartIsOpen={this.props.cartIsOpen}
               inStock={this.state.prodData.data.inStock}
@@ -87,7 +94,9 @@ class ProductCell extends Component {
             inStock={this.state.prodData.data.inStock}
             onClick={() => {
               this.handleAddToCart(this.state.prodData);
-              console.log(this.state.prodData);
+              this.props.setCurrentProductID({
+                currentProductID: this.state.prodData.data,
+              });
             }}
           >
             <ButtonImg src={Cart} alt="cart" />

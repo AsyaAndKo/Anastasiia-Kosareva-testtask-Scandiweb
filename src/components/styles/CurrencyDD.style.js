@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CurrencyDD = styled.button`
+export const CurrencyDD = styled.button`
   justify-content: center;
   display: inline-flex;
   cursor: pointer;
@@ -14,7 +14,7 @@ const CurrencyDD = styled.button`
   }
 `;
 
-const CurrencyLbl = styled.label`
+export const CurrencyLbl = styled.label`
   text-decoration: none;
   justify-content: center;
   cursor: pointer;
@@ -26,7 +26,7 @@ const CurrencyLbl = styled.label`
   margin: auto 5px;
 `;
 
-const Chevron = styled.img`
+export const Chevron = styled.img`
   margin: auto;
   width: 10px;
   height: 10px;
@@ -39,42 +39,32 @@ const Chevron = styled.img`
   transform: ${(props) => (props.open ? `rotate(180deg)` : "")};
 `;
 
-const CurrencyDDcontainer = styled.div`
+export const CurrencyDDcontainer = styled.div`
   justify-content: center;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
   transition: all ease-in 300ms;
-  width: auto;
-  height: auto;
+  width: max-content;
+  height: max-content;
   position: absolute;
   display: ${(props) => (props.open ? "flex" : "none")};
 `;
 
-const CurrencyDDList = styled.ul`
+export const CurrencyDDList = styled.ul`
   list-style-type: none;
-  margin: 10px;
+
   overflow: hidden;
   padding: 0px;
 `;
 
-const CurrencyDDitem = styled.li`
+export const CurrencyDDitem = styled.li`
   text-decoration: none;
   display: block;
   text-align: left;
   padding: 10px;
-  border-bottom: 2px solid transparent;
+  background-color: ${(props) => (props.active() ? `#eee` : `#fff`)};
 
   &:hover {
-    outline: 1;
-    border-bottom: 2px solid #5ece7b;
+    background-color: #eeeeee;
     transition: 150ms ease-in;
   }
 `;
-
-export {
-  CurrencyDD,
-  CurrencyLbl,
-  Chevron,
-  CurrencyDDcontainer,
-  CurrencyDDList,
-  CurrencyDDitem,
-};

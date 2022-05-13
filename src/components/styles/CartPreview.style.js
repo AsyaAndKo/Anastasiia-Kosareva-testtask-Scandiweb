@@ -47,7 +47,7 @@ export const CartContainer = styled.div`
 
   justify-content: center;
   position: absolute;
-  width: auto;
+  width: 400px;
   height: auto;
   right: 90px;
   top: 80px;
@@ -97,17 +97,13 @@ export const ProductsContainer = styled.div`
   display: column;
 `;
 
-export const ProductContainer = styled.div`
-  width: 100%;
-`;
-
 //Total sum
 export const FooterTotal = styled.div`
   width: 100%;
   height: 100%;
   display: inline-block;
   justify-content: baseline;
-  margin: 25px 16px;
+  margin: 0 16px 40px;
 `;
 
 export const TotalLabel = styled.label`
@@ -134,10 +130,11 @@ export const SumLabel = styled.label`
 
 //Buttons container
 export const ButtonsContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 400px;
+  height: 50px;
   display: flex;
-  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 16px;
 `;
 
 export const ViewBag = styled.button`
@@ -150,7 +147,10 @@ export const ViewBag = styled.button`
   justify-content: center;
   align-items: center;
   padding: 16px 32px;
-  margin: 0px 10px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 0 16px;
 
   cursor: pointer;
 
@@ -184,11 +184,14 @@ export const CheckOut = styled.button`
   justify-content: center;
   align-items: center;
   padding: 16px 32px;
-  margin: 0px 10px;
-
   border: none;
 
   cursor: pointer;
+
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 0 16px;
 
   width: 150px;
   height: 50px;

@@ -12,9 +12,7 @@ const cartIsOpenReducer = (state = INITIAL_STATE, action) => {
         cartIsOpen: action.payload.cartIsOpen,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
 

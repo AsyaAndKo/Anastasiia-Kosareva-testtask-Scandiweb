@@ -1,7 +1,7 @@
 import { productIDTypes } from "./productID.types";
 
 const INITIAL_STATE = {
-  currentProductID: "",
+  currentProductID: {},
 };
 
 const productIDReducer = (state = INITIAL_STATE, action) => {
@@ -9,7 +9,7 @@ const productIDReducer = (state = INITIAL_STATE, action) => {
     case productIDTypes.SET_CURRENT_PRODUCT_ID:
       return { currentProductID: action.payload.currentProductID };
     default:
-      return { ...state };
+      return state;
   }
 };
 

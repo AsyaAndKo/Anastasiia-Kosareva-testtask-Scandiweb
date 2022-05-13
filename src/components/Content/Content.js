@@ -42,7 +42,7 @@ class Content extends Component {
         <ContentCategory>{this.props.currentCategory}</ContentCategory>
         <ContentContainer>
           {this.state.categoryIDs.map((element) => {
-            return <ProductCell id={element}></ProductCell>;
+            return <ProductCell key={element} id={element}></ProductCell>;
           })}
         </ContentContainer>
       </ContentPage>

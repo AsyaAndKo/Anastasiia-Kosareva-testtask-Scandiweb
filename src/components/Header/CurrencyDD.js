@@ -59,7 +59,11 @@ class CurrencyDropDown extends Component {
           <CurrencyDDList>
             {Object.entries(this.state.currency).map(([key, value]) => {
               return (
-                <CurrencyDDitem onClick={() => this.onOptionClicked(key)}>
+                <CurrencyDDitem
+                  key={key}
+                  active={() => currentCurrency === key}
+                  onClick={() => this.onOptionClicked(key)}
+                >
                   <CurrencyLbl>
                     {key} {value}
                   </CurrencyLbl>

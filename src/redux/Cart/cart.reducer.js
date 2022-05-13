@@ -1,11 +1,11 @@
 import { cartTypes } from "./cart.types";
-import { handleAddToCart } from "./cart.utils";
+import { handleAddToCart, handleReduceCartItem } from "./cart.utils";
 
 const INITIAL_STATE = {
   cartItems: [],
 };
 
-export const cartReducer = (state = INITIAL_STATE, action) => {
+const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case cartTypes.ADD_TO_CART:
       return {
@@ -15,7 +15,17 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
           nextCartItem: action.payload,
         }),
       };
+    case cartTypes.REDUCE_CART_ITEM:
+      return {
+        ...state,
+        cartItems: handleReduceCartItem({
+          prevCartItem: state.cartItems,
+          cartItemToReduce: action.payload,
+        }),
+      };
     default:
       return state;
   }
 };
+
+export default cartReducer;
