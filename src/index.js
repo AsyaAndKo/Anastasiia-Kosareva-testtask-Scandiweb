@@ -8,7 +8,7 @@ import { store, persistor } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 
 export const client = new ApolloClient({
-  uri: "http://localhost:4000/",
+  uri: "http://192.168.0.112:4000/",
   cache: new InMemoryCache(),
 });
 

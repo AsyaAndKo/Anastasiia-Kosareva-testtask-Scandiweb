@@ -9,6 +9,8 @@ export const ContentPage = styled.div`
     height: 100%;
     background-color: rgba(57, 55, 72, 0.22);;
     position: fixed;
+    margin:0;
+    padding: 0;
     pointer-events:none;
     background: rgba(57, 55, 72, 0.22);;
     `

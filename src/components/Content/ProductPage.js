@@ -17,6 +17,7 @@ import {
   Price,
   AddToCartBtn,
   Description,
+  GrayLayout,
 } from "../styles/ProductPage.style";
 import { addProduct } from "../../redux/Cart/cart.actions";
 
@@ -75,102 +76,106 @@ class ProductPage extends Component {
     let initialAttributes = {};
     return (
       this.props.currentProductID.gallery !== undefined && (
-        <ProdPageContainer cartIsOpen={this.props.cartIsOpen}>
-          <SImgContainer>
-            {this.props.currentProductID.gallery.map((img) => {
-              return (
-                <SImage
-                  key={img}
-                  src={img}
-                  alt="small photo"
-                  onClick={() => {
-                    this.setState({ largeImage: img });
-                    console.log(img);
-                  }}
-                />
-              );
-            })}
-          </SImgContainer>
-          <LImageContainer>
-            <LImage src={this.state.largeImage} alt="large photo" />
-          </LImageContainer>
-          <InfoBox>
-            <ProductBrand>{this.props.currentProductID.brand}</ProductBrand>
-            <ProductName>{this.props.currentProductID.name}</ProductName>
-            {this.props.currentProductID.attributes.map((attribute) => {
-              initialAttributes[attribute.name] = attribute.items[0].value;
-              return (
-                <AttributeContainer key={attribute}>
-                  <AttributeName>{attribute.name}:</AttributeName>
-                  {attribute.items.map((item) => {
-                    return attribute.type === "text" ? (
-                      <AttributeBoxText
-                        key={item.value}
-                        clickable={true}
-                        active={() => {
-                          return (
-                            this.state.currentAttributes[attribute.name] ===
-                            item.value
-                          );
-                        }}
-                        onClick={() => {
-                          initialAttributes = this.state.currentAttributes;
-
-                          initialAttributes[attribute.name] = item.value;
-                          this.setState({
-                            currentAttributes: initialAttributes,
-                          });
-                        }}
-                      >
-                        {item.value}
-                      </AttributeBoxText>
-                    ) : (
-                      <AttributeBoxSwatch
-                        key={item.value}
-                        color={item.value}
-                        clickable={true}
-                        active={() => {
-                          return (
-                            this.state.currentAttributes[attribute.name] ===
-                            item.value
-                          );
-                        }}
-                        onClick={() => {
-                          initialAttributes = this.state.currentAttributes;
-                          initialAttributes[attribute.name] = item.value;
-                          this.setState({
-                            currentAttributes: initialAttributes,
-                          });
-                        }}
-                      />
-                    );
-                  })}
-                </AttributeContainer>
-              );
-            })}
-
-            <AttributeContainer>
-              <AttributeName>price:</AttributeName>
-              <Price>{this.setPriceCurrency(this.props.currentCurrency)}</Price>
-            </AttributeContainer>
-            <AddToCartBtn
-              inStock={this.props.currentProductID.inStock}
-              onClick={() => {
-                let copy = JSON.parse(
-                  JSON.stringify(this.state.currentAttributes)
+        <GrayLayout>
+          <ProdPageContainer cartIsOpen={this.props.cartIsOpen}>
+            <SImgContainer>
+              {this.props.currentProductID.gallery.map((img) => {
+                return (
+                  <SImage
+                    key={img}
+                    src={img}
+                    alt="small photo"
+                    onClick={() => {
+                      this.setState({ largeImage: img });
+                      console.log(img);
+                    }}
+                  />
                 );
-                this.handleAddToCart({
-                  data: this.props.currentProductID,
-                  attributes: copy,
-                });
-              }}
-            >
-              add to cart
-            </AddToCartBtn>
+              })}
+            </SImgContainer>
+            <LImageContainer>
+              <LImage src={this.state.largeImage} alt="large photo" />
+            </LImageContainer>
+            <InfoBox>
+              <ProductBrand>{this.props.currentProductID.brand}</ProductBrand>
+              <ProductName>{this.props.currentProductID.name}</ProductName>
+              {this.props.currentProductID.attributes.map((attribute) => {
+                initialAttributes[attribute.name] = attribute.items[0].value;
+                return (
+                  <AttributeContainer key={attribute}>
+                    <AttributeName>{attribute.name}:</AttributeName>
+                    {attribute.items.map((item) => {
+                      return attribute.type === "text" ? (
+                        <AttributeBoxText
+                          key={item.value}
+                          clickable={true}
+                          active={() => {
+                            return (
+                              this.state.currentAttributes[attribute.name] ===
+                              item.value
+                            );
+                          }}
+                          onClick={() => {
+                            initialAttributes = this.state.currentAttributes;
 
-            <Description content={this.props.currentProductID.description} />
-          </InfoBox>
-        </ProdPageContainer>
+                            initialAttributes[attribute.name] = item.value;
+                            this.setState({
+                              currentAttributes: initialAttributes,
+                            });
+                          }}
+                        >
+                          {item.value}
+                        </AttributeBoxText>
+                      ) : (
+                        <AttributeBoxSwatch
+                          key={item.value}
+                          color={item.value}
+                          clickable={true}
+                          active={() => {
+                            return (
+                              this.state.currentAttributes[attribute.name] ===
+                              item.value
+                            );
+                          }}
+                          onClick={() => {
+                            initialAttributes = this.state.currentAttributes;
+                            initialAttributes[attribute.name] = item.value;
+                            this.setState({
+                              currentAttributes: initialAttributes,
+                            });
+                          }}
+                        />
+                      );
+                    })}
+                  </AttributeContainer>
+                );
+              })}
+
+              <AttributeContainer>
+                <AttributeName>price:</AttributeName>
+                <Price>
+                  {this.setPriceCurrency(this.props.currentCurrency)}
+                </Price>
+              </AttributeContainer>
+              <AddToCartBtn
+                inStock={this.props.currentProductID.inStock}
+                onClick={() => {
+                  let copy = JSON.parse(
+                    JSON.stringify(this.state.currentAttributes)
+                  );
+                  this.handleAddToCart({
+                    data: this.props.currentProductID,
+                    attributes: copy,
+                  });
+                }}
+              >
+                add to cart
+              </AddToCartBtn>
+
+              <Description content={this.props.currentProductID.description} />
+            </InfoBox>
+          </ProdPageContainer>
+        </GrayLayout>
       )
     );
   }

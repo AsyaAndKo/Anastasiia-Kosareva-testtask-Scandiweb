@@ -13,6 +13,7 @@ export const ProdPageContainer = styled.div`
     props.cartIsOpen === "open"
       ? `width: 100%;
     height: 100%;
+
     background-color: rgba(57, 55, 72, 0.22);;
     position: fixed;
     pointer-events:none;
@@ -22,6 +23,20 @@ export const ProdPageContainer = styled.div`
       opacity:100%;`}
 `;
 
+export const GrayLayout = styled.div`
+  /* position: absolute;
+  height: 100%;
+  width: 100%;
+
+  ${(props) =>
+    props.cartIsOpen === "open"
+      ? `display:flex; background-color: rgba(57, 55, 72, 0.22);
+  position: fixed;
+  pointer-events: none;
+  opacity: 100%;
+  background: rgba(57, 55, 72, 0.22);`
+      : `display:none;`}; */
+`;
 export const SImgContainer = styled.div`
   display: flow;
   width: 120px;

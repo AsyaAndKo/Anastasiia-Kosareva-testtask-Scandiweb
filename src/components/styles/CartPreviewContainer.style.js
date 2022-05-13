@@ -15,14 +15,14 @@ export const ProductInfo = styled.div`
   font-weight: 300;
   font-size: 16px;
   display: flex;
-  width: 100%;
+  width: 70%;
   flex-direction: column;
   margin-right: 16px;
 `;
 
 export const ProductImg = styled.img`
   height: 100%;
-  width: 100%;
+  width: 30%;
   object-fit: contain;
   margin-right: 32px;
 `;

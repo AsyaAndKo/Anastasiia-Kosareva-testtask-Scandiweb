@@ -69,7 +69,10 @@ class CartPreview extends Component {
   render() {
     return (
       <>
-        <CartBtn onClick={() => this.handleClick()}>
+        <CartBtn
+          onClick={() => this.handleClick()}
+          cartIsOpen={this.props.cartIsOpen}
+        >
           <CartnBage>
             <CartImg src={cartImg} alt="shopping cart" />
             <Badge amount={this.props.totalNumCartItems}>

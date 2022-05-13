@@ -3,10 +3,11 @@ import styled from "styled-components";
 export const CartBtn = styled.button`
   justify-content: center;
   display: inline-flex;
-  cursor: pointer;
 
   margin: 30px;
 
+  ${(props) =>
+    props.cartIsOpen === "open" ? `pointer-events: none;` : `cursor: pointer;`}
   background-color: transparent;
   border: none;
 `;
