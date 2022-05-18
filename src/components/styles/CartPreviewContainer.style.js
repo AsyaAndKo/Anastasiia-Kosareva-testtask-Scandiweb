@@ -66,6 +66,7 @@ export const AttributeContainer = styled.div`
 
 export const AttributeBoxText = styled.div`
   margin-right: 8px;
+  margin-top: 8px;
   display: flex;
   align-items: center;
   justify-content: center;

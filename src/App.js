@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
 import Header from "./components/Header/Header";
 import Cart from "./components/Content/Cart/Cart";
 import Content from "./components/Content/Content";
@@ -9,7 +8,7 @@ import ProductPage from "./components/Content/ProductPage";
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div>
         <BrowserRouter>
           <Header />
           <Routes>
