@@ -15,6 +15,7 @@ export const ProductContainer = styled.div`
   position: relative;
   margin: 0 45px 100px;
   display: flex;
+  height: 100%;
 
   ${(props) => (props.inStock ? `cursor: pointer;` : `opacity: 0.4;`)}
 
@@ -25,7 +26,7 @@ export const ProductContainer = styled.div`
 `;
 
 export const ProductImg = styled.img`
-  height: 100%;
+  height: 75%;
   object-fit: contain;
   margin: 15px;
   filter: ${(props) => (props.inStock ? `grayscale(0%)` : `grayscale(100%)`)};
@@ -40,6 +41,12 @@ export const OutOfStock = styled.label`
   left: 50%;
   transform: translate(-50%, -50%);
   text-transform: uppercase;
+`;
+
+export const ProductInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 25%;
 `;
 
 export const ProductName = styled.label`

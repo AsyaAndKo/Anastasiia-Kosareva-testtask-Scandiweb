@@ -3,19 +3,19 @@ import styled from "styled-components";
 export const ContentPage = styled.div`
   size: fill;
   height: 100%;
+  border: 1px solid transparent;
   ${(props) =>
     props.cartIsOpen === "open"
-      ? `width: 100%;
-    height: 100%;
-    background-color: rgba(57, 55, 72, 0.22);;
-    position: fixed;
-    margin:0;
-    padding: 0;
+      ? `
+    opacity: 50%;
+    background-color: rgba(34, 60, 80, 0.2);
     pointer-events:none;
-    background: rgba(57, 55, 72, 0.22);;
+
+    width: 100%;
+    height: 100%;
     `
       : `background-color:transparent;
-      opacity:100%;`}
+      opacity:100%;`};
 `;
 
 export const ContentCategory = styled.h2`
@@ -25,7 +25,7 @@ export const ContentCategory = styled.h2`
   font-family: "Raleway", sans-serif;
   text-transform: capitalize;
 
-  margin: 80px 100px;
+  margin: 160px 100px 0;
   padding: 0 40px;
   align-items: center;
   width: min-content;

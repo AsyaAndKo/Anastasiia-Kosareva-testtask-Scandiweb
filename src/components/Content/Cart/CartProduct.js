@@ -99,7 +99,7 @@ class CartProduct extends Component {
             })}
           </InfoBox>
         </InfoContainer>
-        <PlusMinusAmount>
+        <PlusMinusAmount cartIsOpen={this.props.cartIsOpen}>
           <ChangeAmountButton
             position="up"
             onClick={() => this.props.addProduct(this.props.product)}
@@ -153,8 +153,9 @@ class CartProduct extends Component {
   }
 }
 
-const mapStateToProps = ({ currentCurrency }) => ({
+const mapStateToProps = ({ currentCurrency, cartIsOpen }) => ({
   currentCurrency: currentCurrency.currentCurrency,
+  cartIsOpen: cartIsOpen.cartIsOpen,
 });
 
 const mapDispatchToProps = (dispatch) => ({

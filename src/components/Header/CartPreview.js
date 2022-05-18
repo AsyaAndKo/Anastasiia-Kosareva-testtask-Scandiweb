@@ -22,6 +22,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectCartItemsCount } from "./../../redux/Cart/cart.selectors";
 import CartPreviewContainer from "./CartPreviewContainer";
+import { clearCart } from "../../redux/Cart/cart.actions";
 
 class CartPreview extends Component {
   constructor(props) {
@@ -90,7 +91,9 @@ class CartPreview extends Component {
           {/* TODO:cart */}
           <ProductsContainer>
             {this.props.cartData.map((product) => {
-              return <CartPreviewContainer key={product} product={product} />;
+              return (
+                <CartPreviewContainer key={product.data.id} product={product} />
+              );
             })}
           </ProductsContainer>
           <FooterTotal>
@@ -106,7 +109,9 @@ class CartPreview extends Component {
               </ViewBag>
             </Link>
             {/* TODO: confetti? cart amount 0, sum amount 0 */}
-            <CheckOut>CHECK OUT</CheckOut>
+            <CheckOut onClick={() => this.props.clearCart()}>
+              CHECK OUT
+            </CheckOut>
           </ButtonsContainer>
         </CartContainer>
       </>
@@ -123,6 +128,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setCartOpen: (cartIsOpen) => dispatch(setCartOpen(cartIsOpen)),
+  clearCart: () => dispatch(clearCart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartPreview);

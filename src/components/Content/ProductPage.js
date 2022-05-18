@@ -17,7 +17,7 @@ import {
   Price,
   AddToCartBtn,
   Description,
-  GrayLayout,
+  ProductDataContainer,
 } from "../styles/ProductPage.style";
 import { addProduct } from "../../redux/Cart/cart.actions";
 
@@ -76,8 +76,8 @@ class ProductPage extends Component {
     let initialAttributes = {};
     return (
       this.props.currentProductID.gallery !== undefined && (
-        <GrayLayout>
-          <ProdPageContainer cartIsOpen={this.props.cartIsOpen}>
+        <ProdPageContainer cartIsOpen={this.props.cartIsOpen}>
+          <ProductDataContainer>
             <SImgContainer>
               {this.props.currentProductID.gallery.map((img) => {
                 return (
@@ -174,8 +174,8 @@ class ProductPage extends Component {
 
               <Description content={this.props.currentProductID.description} />
             </InfoBox>
-          </ProdPageContainer>
-        </GrayLayout>
+          </ProductDataContainer>
+        </ProdPageContainer>
       )
     );
   }

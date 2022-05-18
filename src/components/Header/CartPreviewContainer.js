@@ -13,6 +13,7 @@ import {
   PlusMinusAmount,
   ChangeAmountButton,
   AmountLabel,
+  ImageContainer,
 } from "../styles/CartPreviewContainer.style";
 import { addProduct, reduceProduct } from "../../redux/Cart/cart.actions";
 
@@ -30,7 +31,7 @@ class CartPreviewContainer extends Component {
   render() {
     return (
       <>
-        <ProductContainer key={this.props.product}>
+        <ProductContainer key={this.props.product.data.id}>
           <ProductInfo>
             <ThinLabel>{this.props.product.data.brand}</ThinLabel>
             <ThinLabel>{this.props.product.data.name}</ThinLabel>
@@ -42,13 +43,19 @@ class CartPreviewContainer extends Component {
             </ThickLabel>
             {this.props.product.data.attributes.map((category) => {
               return (
-                <>
-                  <CategoryLabel>{category.name}:</CategoryLabel>
-                  <AttributeContainer>
+                <div key={this.props.product.data.id}>
+                  <CategoryLabel
+                    key={this.props.product.data.id + category.name}
+                  >
+                    {category.name}:
+                  </CategoryLabel>
+                  <AttributeContainer
+                    key={this.props.product.data.id + category.type}
+                  >
                     {category.items.map((item) => {
                       return category.type === "text" ? (
                         <AttributeBoxText
-                          key={item.value}
+                          key={category.type + item.id}
                           active={() => {
                             return (
                               this.props.product.attributes[category.name] ===
@@ -60,7 +67,7 @@ class CartPreviewContainer extends Component {
                         </AttributeBoxText>
                       ) : (
                         <AttributeBoxSwatch
-                          key={item.value}
+                          key={category.name + item.value}
                           color={item.value}
                           active={() => {
                             return (
@@ -72,7 +79,7 @@ class CartPreviewContainer extends Component {
                       );
                     })}
                   </AttributeContainer>
-                </>
+                </div>
               );
             })}
           </ProductInfo>
@@ -91,7 +98,9 @@ class CartPreviewContainer extends Component {
               –
             </ChangeAmountButton>
           </PlusMinusAmount>
-          <ProductImg src={this.props.product.data.gallery[0]} alt="photo" />
+          <ImageContainer>
+            <ProductImg src={this.props.product.data.gallery[0]} alt="photo" />
+          </ImageContainer>
         </ProductContainer>
       </>
     );

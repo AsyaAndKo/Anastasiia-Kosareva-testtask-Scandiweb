@@ -42,6 +42,7 @@ export const Chevron = styled.img`
 export const CurrencyDDcontainer = styled.div`
   justify-content: center;
   box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  background-color: white;
   transition: all ease-in 300ms;
   width: max-content;
   height: max-content;

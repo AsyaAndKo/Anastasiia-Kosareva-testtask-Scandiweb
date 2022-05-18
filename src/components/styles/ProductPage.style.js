@@ -2,57 +2,55 @@ import styled from "styled-components";
 import { Interweave } from "interweave";
 
 export const ProdPageContainer = styled.div`
-  margin: 80px 100px;
+  border: 1px solid transparent;
+  size: fill;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
+  height: 100%;
   width: auto;
 
   font-family: "Raleway", sans-serif;
 
   ${(props) =>
     props.cartIsOpen === "open"
-      ? `width: 100%;
-    height: 100%;
-
-    background-color: rgba(57, 55, 72, 0.22);;
+      ? `
     position: fixed;
     pointer-events:none;
-    background: rgba(57, 55, 72, 0.22);;
+    opacity: 50%;
+    background-color: rgba(34, 60, 80, 0.2);
     `
       : `background-color:transparent;
       opacity:100%;`}
 `;
 
-export const GrayLayout = styled.div`
-  /* position: absolute;
-  height: 100%;
+export const ProductDataContainer = styled.div`
+  margin: 160px 100px 0;
+  display: flex;
+  flex-direction: row;
   width: 100%;
-
-  ${(props) =>
-    props.cartIsOpen === "open"
-      ? `display:flex; background-color: rgba(57, 55, 72, 0.22);
-  position: fixed;
-  pointer-events: none;
-  opacity: 100%;
-  background: rgba(57, 55, 72, 0.22);`
-      : `display:none;`}; */
+  height: 100%;
 `;
+
 export const SImgContainer = styled.div`
-  display: flow;
-  width: 120px;
-  height: 120px;
-  padding-bottom: 50px;
+  width: 7%;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  max-height: 700px;
+  overflow: auto;
+  white-space: nowrap;
 `;
 
 export const SImage = styled.img`
-  height: 100%;
+  width: 100%;
+  padding-bottom: 10px;
   object-fit: contain;
   cursor: pointer;
 `;
 
 export const LImageContainer = styled.div`
   height: 700px;
-  width: 700px;
+  width: 40%;
   margin: 0 100px;
 `;
 
@@ -64,7 +62,7 @@ export const LImage = styled.img`
 
 export const InfoBox = styled.div`
   height: max-content;
-  width: max-content;
+  width: 30%;
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -195,4 +193,7 @@ export const Description = styled(Interweave)`
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
+  height: auto;
+  max-height: 200px;
+  overflow: auto;
 `;

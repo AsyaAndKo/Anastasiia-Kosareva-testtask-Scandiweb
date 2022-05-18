@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   CartHeader,
+  CartPageContainer,
   OrderButton,
   ProductContainer,
   ThickLabel,
@@ -10,6 +11,7 @@ import {
 } from "../../styles/Cart.style";
 import CartProduct from "./CartProduct";
 import { selectCartItemsCount } from "../../../redux/Cart/cart.selectors";
+import { clearCart } from "../../../redux/Cart/cart.actions";
 
 class Cart extends Component {
   countSum = (currency) => {
@@ -30,7 +32,7 @@ class Cart extends Component {
 
   render() {
     return (
-      <>
+      <CartPageContainer cartIsOpen={this.props.cartIsOpen}>
         <CartHeader>Cart</CartHeader>
         {this.props.cartData.map((product) => {
           return <CartProduct key={product.data.id} product={product} />;
@@ -55,16 +57,21 @@ class Cart extends Component {
             </ThickLabel>
           </TotalContainer>
         </ProductContainer>
-        <OrderButton>Order</OrderButton>
-      </>
+        <OrderButton onClick={() => this.props.clearCart()}>Order</OrderButton>
+      </CartPageContainer>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
+  cartIsOpen: state.cartIsOpen.cartIsOpen,
   cartData: state.cartData.cartItems,
   currentCurrency: state.currentCurrency.currentCurrency,
   totalNumCartItems: selectCartItemsCount(state),
 });
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = (dispatch) => ({
+  clearCart: () => dispatch(clearCart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

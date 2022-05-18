@@ -16,10 +16,10 @@ export const NavbarLink = styled(NavLink)`
   padding: 32px;
   padding-bottom: 28px;
   border-bottom: 2px solid
-    ${(props) => (props.active() ? "#5ece7b" : "transparent")};
+    ${(props) => (props.active === "true" ? "#5ece7b" : "transparent")};
 
   text-decoration: none;
-  color: ${(props) => (props.active() ? "#5ece7b" : "black")};
+  color: ${(props) => (props.active === "true" ? "#5ece7b" : "black")};
   font-size: 16px;
   font-family: "Raleway", sans-serif;
   text-align: center;

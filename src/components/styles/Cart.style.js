@@ -1,7 +1,27 @@
 import styled from "styled-components";
 
+export const CartPageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid transparent;
+  size: fill;
+
+  ${(props) =>
+    props.cartIsOpen === "open"
+      ? `
+    position: fixed;
+    pointer-events:none;
+    opacity: 50%;
+    background-color: rgba(34, 60, 80, 0.2);
+    `
+      : `background-color:transparent;
+      opacity:100%;`}
+`;
+
 export const CartHeader = styled.h1`
-  margin: 80px 110px;
+  margin: 160px 110px 80px;
 
   font-family: "Raleway";
   font-style: normal;
@@ -53,23 +73,21 @@ export const PlusMinusAmount = styled.div`
   flex-direction: column;
   position: relative;
   padding: 24px;
-  background-color: white;
 
   width: max-content;
-  /* justify-content: center;
-  align-items: center; */
 `;
 
 export const ChangeAmountButton = styled.button`
   cursor: pointer;
-  background: white;
+  background-color: transparent;
   width: 45px;
   height: 45px;
   border: 1px solid black;
   position: absolute;
   ${(props) => (props.position === "up" ? `top: 0;` : `bottom: 0;`)}
-  /* margin: 0;
-  padding: 0; */
+  margin: 0;
+  padding: 0;
+
   font-family: "Source Sans Pro";
   font-style: normal;
   font-weight: 400;

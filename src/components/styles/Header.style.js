@@ -4,7 +4,12 @@ const HeaderContainer = styled.div`
   width: 100%;
   height: 80px;
   display: flex;
+  z-index: 20;
+  position: fixed;
+  top: 0;
+  background: white;
 `;
+
 const LeftContainer = styled.div`
   flex: 45%;
   display: flex;

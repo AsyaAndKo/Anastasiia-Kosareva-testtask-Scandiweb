@@ -9,6 +9,7 @@ import {
   ProductName,
   ProductPrice,
   ProductLink,
+  ProductInfo,
 } from "../styles/ProductCell.style";
 import { getProductInfo } from "../../queries";
 import { connect } from "react-redux";
@@ -81,13 +82,15 @@ class ProductCell extends Component {
             <OutOfStock inStock={this.state.prodData.data.inStock}>
               Out of stock
             </OutOfStock>
-            <ProductName>
-              {this.state.prodData.data["brand"]}{" "}
-              {this.state.prodData.data["name"]}
-            </ProductName>
-            <ProductPrice>
-              {this.setPriceCurrency(this.props.currentCurrency)}
-            </ProductPrice>
+            <ProductInfo>
+              <ProductName>
+                {this.state.prodData.data["brand"]}{" "}
+                {this.state.prodData.data["name"]}
+              </ProductName>
+              <ProductPrice>
+                {this.setPriceCurrency(this.props.currentCurrency)}
+              </ProductPrice>
+            </ProductInfo>
           </ProductLink>
           <AddButton
             divHover={this.state.divHover}

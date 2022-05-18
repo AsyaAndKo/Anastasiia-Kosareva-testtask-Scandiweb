@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ProductContainer = styled.div`
-  width: 100%;
+  width: auto;
   height: max-content;
   display: flex;
   flex-direction: row;
@@ -15,16 +15,27 @@ export const ProductInfo = styled.div`
   font-weight: 300;
   font-size: 16px;
   display: flex;
-  width: 70%;
+  width: 60%;
   flex-direction: column;
   margin-right: 16px;
 `;
 
+export const ImageContainer = styled.div`
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  margin: 0;
+`;
+
 export const ProductImg = styled.img`
+  width: 100%;
   height: 100%;
-  width: 30%;
   object-fit: contain;
   margin-right: 32px;
+  display: flex;
+  justify-content: center;
 `;
 
 export const ThinLabel = styled.label`
@@ -65,7 +76,7 @@ export const AttributeBoxText = styled.div`
   font-size: 12px;
   line-height: 18px;
 
-  width: 30px;
+  width: 32px;
   height: 24px;
   border: 1px solid #1d1f22;
 
@@ -105,9 +116,9 @@ export const PlusMinusAmount = styled.div`
   padding-left: 0;
   background-color: white;
   margin-right: 10px;
-  width: max-content;
-  /* justify-content: center;
-  align-items: center; */
+  width: 10%;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ChangeAmountButton = styled.button`
@@ -138,5 +149,6 @@ export const AmountLabel = styled.label`
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+
   padding: 30%;
 `;

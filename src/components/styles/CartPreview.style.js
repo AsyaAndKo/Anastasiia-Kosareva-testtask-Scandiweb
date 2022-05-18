@@ -44,8 +44,7 @@ export const Badge = styled.span`
 
 // Whole miniCart container
 export const CartContainer = styled.div`
-  z-index: 16;
-
+  z-index: 10;
   justify-content: center;
   position: absolute;
   width: 400px;
@@ -63,7 +62,7 @@ export const Header = styled.div`
   width: 100%;
   height: 100%;
   display: inline;
-  margin: 6px auto 25px 16px;
+  margin: 40px 20px;
 `;
 
 export const HeaderName = styled.label`
@@ -93,9 +92,13 @@ export const HeaderCounterLabel = styled.label`
 
 // Added to cart products container
 export const ProductsContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  /* width: max-content; */
+  height: auto;
+  max-height: 70vh;
+  overflow: auto;
   display: column;
+
+  white-space: nowrap;
 `;
 
 //Total sum
