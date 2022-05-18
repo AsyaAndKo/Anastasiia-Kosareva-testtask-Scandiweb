@@ -73,9 +73,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 It's been a long time but finally I am ready to present my test task. It's been a great journey and I had lots of fun :)
 
 To start with, you can run the application using following commands 
-```npm install 
-(or if any errors occurred, try npm install --save --legacy-peer-deps)
-npm start ```
+
+```
+npm install 
+npm start
+```
+
+or if any errors occurred, try 
+```
+npm install --save --legacy-peer-deps
+npm start
+```
+
 and if there are some errors, try to install all packages that are written in console errors.
 
 In src/index.js file end-point is reached by localhost, so be sure that you run it on your local machine. If not, please change "localhost" to the ip 
