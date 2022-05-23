@@ -7,7 +7,6 @@ export const ContentPage = styled.div`
   ${(props) =>
     props.cartIsOpen === "open"
       ? `
-    position: fixed;
     opacity: 50%;
     background-color: rgba(57, 55, 72, 0.22);
     pointer-events:none;
