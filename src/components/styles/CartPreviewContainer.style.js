@@ -33,7 +33,7 @@ export const ProductImg = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
-  margin-right: 32px;
+  /* margin-right: 32px; */
   display: flex;
   justify-content: center;
 `;

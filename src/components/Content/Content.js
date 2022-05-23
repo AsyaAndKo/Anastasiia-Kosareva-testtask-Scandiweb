@@ -18,8 +18,6 @@ class Content extends Component {
     };
   }
 
-  handleLoadMore = () => {};
-
   updateCategoryIDs = async (prevProps) => {
     if (prevProps.currentCategory !== this.props.currentCategory) {
       // This empty setState is to avoid shallow merging
@@ -48,7 +46,7 @@ class Content extends Component {
           {this.state.categoryIDs
             .slice(0, this.state.prevIndex)
             .map((element) => {
-              return <ProductCell key={element} id={element}></ProductCell>;
+              return <ProductCell key={element} id={element} />;
             })}
           <LoadMoreBtn
             visible={() => this.state.prevIndex < this.state.categoryIDs.length}

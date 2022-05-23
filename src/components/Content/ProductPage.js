@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getAllAttributes, getProductInfo } from "../../queries";
+import { getProductInfo } from "../../queries";
 import {
   ProductName,
   InfoBox,
@@ -26,15 +26,14 @@ class ProductPage extends Component {
     super(props);
     this.state = {
       prodData: { data: [], attributes: {} },
-      largeImage: this.props.currentProductID.gallery[0],
-      attributes: [],
+      largeImage: "",
       currentAttributes: {},
     };
   }
 
   setPriceCurrency = (currency) => {
     let amount = 0;
-    this.props.currentProductID.prices.forEach((element) => {
+    this.state.prodData.data.prices.forEach((element) => {
       if (element.currency.symbol === currency) {
         amount = element.amount;
       }
@@ -46,12 +45,6 @@ class ProductPage extends Component {
     this.props.addProduct(product);
   };
 
-  getAllData = async (id) => {
-    this.setState({
-      prodData: await getProductInfo(id),
-    });
-  };
-
   getInitialAttributes = (allAttributes) => {
     let initialAttributes = {};
     allAttributes.forEach((attribute) => {
@@ -60,26 +53,28 @@ class ProductPage extends Component {
     return initialAttributes;
   };
 
-  async componentDidMount() {
-    this.getAllData(this.props.currentProductID.id);
-    this.setState({
-      attributes: await getAllAttributes(this.props.currentProductID.id),
-    });
-    this.setState({
-      currentAttributes: this.getInitialAttributes(
-        this.props.currentProductID.attributes
-      ),
+  componentDidMount() {
+    getProductInfo(this.props.currentProductID).then((result) => {
+      this.setState({ prodData: result });
+      this.setState({
+        largeImage: result.data.gallery[0],
+        currentAttributes: this.getInitialAttributes(result.data.attributes),
+        attributes: result.data.attributes,
+      });
     });
   }
 
+  componentDidUpdate() {}
+
   render() {
+    console.log(this.state.attributes);
     let initialAttributes = {};
     return (
-      this.props.currentProductID.gallery !== undefined && (
+      this.state.prodData.data.gallery !== undefined && (
         <ProdPageContainer cartIsOpen={this.props.cartIsOpen}>
           <ProductDataContainer>
             <SImgContainer>
-              {this.props.currentProductID.gallery.map((img) => {
+              {this.state.prodData.data.gallery.map((img) => {
                 return (
                   <SImage
                     key={img}
@@ -97,10 +92,10 @@ class ProductPage extends Component {
               <LImage src={this.state.largeImage} alt="large photo" />
             </LImageContainer>
             <InfoBox>
-              <ProductBrand>{this.props.currentProductID.brand}</ProductBrand>
-              <ProductName>{this.props.currentProductID.name}</ProductName>
-              {this.props.currentProductID.attributes.map((attribute) => {
-                initialAttributes[attribute.name] = attribute.items[0].value;
+              <ProductBrand>{this.state.prodData.data.brand}</ProductBrand>
+              <ProductName>{this.state.prodData.data.name}</ProductName>
+              {this.state.prodData.data.attributes.map((attribute) => {
+                //initialAttributes[attribute.name] = attribute.items[0].value;
                 return (
                   <AttributeContainer key={attribute}>
                     <AttributeName>{attribute.name}:</AttributeName>
@@ -158,13 +153,13 @@ class ProductPage extends Component {
                 </Price>
               </AttributeContainer>
               <AddToCartBtn
-                inStock={this.props.currentProductID.inStock}
+                inStock={this.state.prodData.data.inStock}
                 onClick={() => {
                   let copy = JSON.parse(
                     JSON.stringify(this.state.currentAttributes)
                   );
                   this.handleAddToCart({
-                    data: this.props.currentProductID,
+                    data: this.state.prodData.data,
                     attributes: copy,
                   });
                 }}
@@ -172,7 +167,7 @@ class ProductPage extends Component {
                 add to cart
               </AddToCartBtn>
 
-              <Description content={this.props.currentProductID.description} />
+              <Description content={this.state.prodData.description} />
             </InfoBox>
           </ProductDataContainer>
         </ProdPageContainer>

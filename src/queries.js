@@ -47,6 +47,25 @@ export const GET_PRODUCT_ATTRIBUTES = gql`
   }
 `;
 
+export const GET_PRODUCT_CELL_INFO = gql`
+  query getProductCellInfo($id: String!) {
+    product(id: $id) {
+      id
+      name
+      brand
+      inStock
+      gallery
+      prices {
+        amount
+        currency {
+          label
+          symbol
+        }
+      }
+    }
+  }
+`;
+
 export const GET_PRODUCT_INFO = gql`
   query getProductInfo($id: String!) {
     product(id: $id) {
@@ -55,7 +74,6 @@ export const GET_PRODUCT_INFO = gql`
       brand
       inStock
       gallery
-      category
       description
       prices {
         amount
@@ -85,7 +103,9 @@ export const getAllCategories = async () => {
     queryResult.data.categories.forEach((category) => {
       categories.push(category.name);
     });
-  } catch (e) {}
+  } catch (e) {
+    console.log(e);
+  }
   return categories;
 };
 
@@ -95,6 +115,8 @@ export const getAllAttributes = async (id) => {
     const queryResult = await client.query({
       query: GET_PRODUCT_ATTRIBUTES,
       variables: { id: id },
+      // Default 'cache-first' causes weird behavior when fetching attributes with same category names.
+      fetchPolicy: "network-only", // 'no-cache' is possible?
     });
     queryResult.data.product.attributes.forEach((attribute) => {
       attributes.push(attribute);
@@ -121,21 +143,37 @@ export const getCategoryIDs = async (category) => {
   return ids;
 };
 
-export const getProductInfo = async (id) => {
-  let result = { data: {}, attributes: {} };
+export const getProductCellInfo = async (id) => {
+  let result = {};
   try {
-    const queryData = await client.query({
-      query: GET_PRODUCT_INFO,
+    const queryResult = await client.query({
+      query: GET_PRODUCT_CELL_INFO,
       variables: { id: id },
     });
-    result.data = queryData.data.product;
-    queryData.data.product.attributes.forEach((attribute) => {
-      result.attributes[attribute.id] = attribute.items[0].value;
-    });
+    result = queryResult.data.product;
   } catch (e) {
     console.log(e);
   }
   return result;
+};
+
+export const getProductInfo = async (id) => {
+  try {
+    const queryData = await client.query({
+      query: GET_PRODUCT_INFO,
+      variables: { id: id },
+      // Default 'cache-first' causes weird behavior when fetching attributes with same category names.
+      fetchPolicy: "network-only", // 'no-cache'?
+    });
+    const result = { data: {}, attributes: {} };
+    result.data = queryData.data.product;
+    queryData.data.product.attributes.forEach((attribute) => {
+      result.attributes[attribute.id] = attribute.items[0].value;
+    });
+    return result;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const getCurrency = async () => {

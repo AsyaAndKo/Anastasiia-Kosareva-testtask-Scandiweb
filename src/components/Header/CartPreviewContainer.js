@@ -15,9 +15,21 @@ import {
   AmountLabel,
   ImageContainer,
 } from "../styles/CartPreviewContainer.style";
+import { getAllAttributes } from "../../queries";
 import { addProduct, reduceProduct } from "../../redux/Cart/cart.actions";
 
 class CartPreviewContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      attributes: {},
+    };
+  }
+
+  getAttributes = async (id) => {
+    this.setState({ attributes: await getAllAttributes(id) });
+  };
+
   setPriceCurrency = (currency, product) => {
     let amount = 0;
     product.data.prices.forEach((element) => {
@@ -41,47 +53,48 @@ class CartPreviewContainer extends Component {
                 this.props.product
               )}
             </ThickLabel>
-            {this.props.product.data.attributes.map((category) => {
-              return (
-                <div key={this.props.product.data.id}>
-                  <CategoryLabel
-                    key={this.props.product.data.id + category.name}
-                  >
-                    {category.name}:
-                  </CategoryLabel>
-                  <AttributeContainer
-                    key={this.props.product.data.id + category.type}
-                  >
-                    {category.items.map((item) => {
-                      return category.type === "text" ? (
-                        <AttributeBoxText
-                          key={category.type + item.id}
-                          active={() => {
-                            return (
-                              this.props.product.attributes[category.name] ===
-                              item.value
-                            );
-                          }}
-                        >
-                          {item.value}
-                        </AttributeBoxText>
-                      ) : (
-                        <AttributeBoxSwatch
-                          key={category.name + item.value}
-                          color={item.value}
-                          active={() => {
-                            return (
-                              this.props.product.attributes[category.name] ===
-                              item.value
-                            );
-                          }}
-                        />
-                      );
-                    })}
-                  </AttributeContainer>
-                </div>
-              );
-            })}
+            {this.props.product.data.attributes !== undefined &&
+              this.props.product.data.attributes.map((category) => {
+                return (
+                  <div key={this.props.product.data.id}>
+                    <CategoryLabel
+                      key={this.props.product.data.id + category.name}
+                    >
+                      {category.name}:
+                    </CategoryLabel>
+                    <AttributeContainer
+                      key={this.props.product.data.id + category.type}
+                    >
+                      {category.items.map((item) => {
+                        return category.type === "text" ? (
+                          <AttributeBoxText
+                            key={category.type + item.id}
+                            active={() => {
+                              return (
+                                this.props.product.attributes[category.name] ===
+                                item.value
+                              );
+                            }}
+                          >
+                            {item.value}
+                          </AttributeBoxText>
+                        ) : (
+                          <AttributeBoxSwatch
+                            key={category.name + item.value}
+                            color={item.value}
+                            active={() => {
+                              return (
+                                this.props.product.attributes[category.name] ===
+                                item.value
+                              );
+                            }}
+                          />
+                        );
+                      })}
+                    </AttributeContainer>
+                  </div>
+                );
+              })}
           </ProductInfo>
           <PlusMinusAmount>
             <ChangeAmountButton
@@ -109,6 +122,7 @@ class CartPreviewContainer extends Component {
 
 const mapStateToProps = (state) => ({
   currentCurrency: state.currentCurrency.currentCurrency,
+  cartData: state.cartData.cartItems,
 });
 
 const mapDispatchToProps = (dispatch) => ({

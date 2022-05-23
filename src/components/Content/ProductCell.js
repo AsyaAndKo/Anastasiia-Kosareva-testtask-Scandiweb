@@ -11,7 +11,7 @@ import {
   ProductLink,
   ProductInfo,
 } from "../styles/ProductCell.style";
-import { getProductInfo } from "../../queries";
+import { getProductCellInfo, getProductInfo } from "../../queries";
 import { connect } from "react-redux";
 import { setCurrentProductID } from "../../redux/ProductID/productID.actions";
 import { addProduct } from "../../redux/Cart/cart.actions";
@@ -20,20 +20,26 @@ class ProductCell extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      prodData: { data: [], attributes: {} },
+      data: [],
       divHover: false,
     };
   }
 
-  getAllData = async (id) => {
+  getAllCellData = async (id) => {
     this.setState({
-      prodData: await getProductInfo(id),
+      data: await getProductCellInfo(id),
+    });
+  };
+
+  getAllData = async (id) => {
+    this.props.setCurrentProductID({
+      currentProductID: await getProductInfo(id),
     });
   };
 
   setPriceCurrency = (currency) => {
     let amount = 0;
-    this.state.prodData.data.prices.forEach((element) => {
+    this.state.data.prices.forEach((element) => {
       if (element.currency.symbol === currency) {
         amount = element.amount;
       }
@@ -49,43 +55,40 @@ class ProductCell extends Component {
   };
 
   async componentDidMount() {
-    await this.getAllData(this.props.id);
+    await this.getAllCellData(this.props.id);
   }
 
   render() {
     return (
-      this.state.prodData.data.gallery !== undefined && (
+      this.state.data.gallery !== undefined && (
         <ProductContainer
-          inStock={this.state.prodData.data.inStock}
           onMouseEnter={this.handleEffect}
           onMouseLeave={this.handleEffect}
           onClick={() => {
+            // getProductInfo(this.props.id).then((result) => console.log(result));
+            // this.getAllData(this.state.data.id);
             this.props.setCurrentProductID({
-              currentProductID: this.state.prodData.data,
+              currentProductID: this.state.data.id,
             });
           }}
         >
           <ProductLink
             to={`/product/${this.props.id}`}
-            onClick={() => {
-              this.props.setCurrentProductID({
-                currentProductID: this.state.prodData.data,
-              });
-            }}
+            // onClick={() => {
+            //   this.getAllData(this.state.data.id);
+            // }}
           >
             <ProductImg
-              cartIsOpen={this.props.cartIsOpen}
-              inStock={this.state.prodData.data.inStock}
-              src={this.state.prodData.data.gallery[0]}
+              inStock={this.state.data.inStock}
+              src={this.state.data.gallery[0]}
               alt="photo"
             />
-            <OutOfStock inStock={this.state.prodData.data.inStock}>
+            <OutOfStock inStock={this.state.data.inStock}>
               Out of stock
             </OutOfStock>
             <ProductInfo>
               <ProductName>
-                {this.state.prodData.data["brand"]}{" "}
-                {this.state.prodData.data["name"]}
+                {this.state.data["brand"]} {this.state.data["name"]}
               </ProductName>
               <ProductPrice>
                 {this.setPriceCurrency(this.props.currentCurrency)}
@@ -94,12 +97,14 @@ class ProductCell extends Component {
           </ProductLink>
           <AddButton
             divHover={this.state.divHover}
-            inStock={this.state.prodData.data.inStock}
+            inStock={this.state.data.inStock}
             onClick={() => {
-              this.handleAddToCart(this.state.prodData);
-              this.props.setCurrentProductID({
-                currentProductID: this.state.prodData.data,
-              });
+              getProductInfo(this.props.id).then((result) =>
+                this.handleAddToCart({
+                  data: result.data,
+                  attributes: result.attributes,
+                })
+              );
             }}
           >
             <ButtonImg src={Cart} alt="cart" />
@@ -110,15 +115,9 @@ class ProductCell extends Component {
   }
 }
 
-const mapStateToProps = ({
-  currentCurrency,
-  currentProductID,
-  cartIsOpen,
-  cartData,
-}) => ({
+const mapStateToProps = ({ currentCurrency, currentProductID, cartData }) => ({
   currentCurrency: currentCurrency.currentCurrency,
   currentProductID: currentProductID.currentProductID,
-  cartIsOpen: cartIsOpen.cartIsOpen,
   cartData: cartData.cartData,
 });
 

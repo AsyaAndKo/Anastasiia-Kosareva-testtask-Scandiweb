@@ -37,7 +37,7 @@ export const SImgContainer = styled.div`
   flex-direction: column;
   height: auto;
   max-height: 700px;
-  overflow: auto;
+  overflow-y: auto;
   white-space: nowrap;
 `;
 
@@ -46,6 +46,7 @@ export const SImage = styled.img`
   padding-bottom: 10px;
   object-fit: contain;
   cursor: pointer;
+  mix-blend-mode: multiply;
 `;
 
 export const LImageContainer = styled.div`
@@ -58,6 +59,7 @@ export const LImage = styled.img`
   height: 100%;
   width: 100%;
   object-fit: contain;
+  mix-blend-mode: multiply;
 `;
 
 export const InfoBox = styled.div`
@@ -121,7 +123,7 @@ export const AttributeBoxText = styled.div`
     props.active()
       ? `background-color: #1d1f22;
     color: white;`
-      : `background-color: #fff;
+      : `background-color: transparent;
     color: black;`}
 `;
 

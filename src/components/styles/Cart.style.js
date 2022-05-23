@@ -11,7 +11,6 @@ export const CartPageContainer = styled.div`
   ${(props) =>
     props.cartIsOpen === "open"
       ? `
-    position: fixed;
     pointer-events:none;
     opacity: 50%;
     background-color: rgba(34, 60, 80, 0.2);
@@ -59,6 +58,7 @@ export const ProductImage = styled.img`
   bottom: 20px;
   right: 0;
   width: 80%;
+  mix-blend-mode: multiply;
 `;
 
 export const ButtonsImageContainer = styled.div`
